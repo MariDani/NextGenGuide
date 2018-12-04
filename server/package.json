@@ -1,0 +1,29 @@
+{
+  "name": "next-gen-guide-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/MariDani/NextGenGuide.git"
+  },
+  "author": "Zuzana Arnoldova & Mariana Danielova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariDani/NextGenGuide/issues"
+  },
+  "homepage": "https://github.com/MariDani/NextGenGuide#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
