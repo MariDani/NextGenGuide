@@ -79,3 +79,4 @@ typings/
 .dynamodb/ 
 
 caddy.exe
+web/dist/caddy
