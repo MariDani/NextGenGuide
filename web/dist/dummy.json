@@ -1,0 +1,19 @@
+[{
+    "name": "John",
+    "surname": "Smith",
+    "tags": ["IT", "Economics"]
+},
+{
+    "name": "Alan",
+    "surname": "Bet",
+    "tags": ["Art", "Economics"]
+},
+{
+    "name": "Zuzka",
+    "surname": "D",
+    "tags": ["IT", "Art"]
+},{
+    "name": "Mari",
+    "surname": "D",
+    "tags": ["IT", "Vis"]
+}]
