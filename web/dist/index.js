@@ -90,7 +90,7 @@ if (document.getElementById("mentordetails")) {
     const regex = /[?](\w+)/g;
     const mentorIdx = mentorsData.getMentorIdxFromId(regex.exec(window.location.search)[1]);
     document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentorIdx);
-    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx);
+    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx, "keywords") + mentorsData.createTags(mentorIdx, "places");
 }
 
 
@@ -98,7 +98,7 @@ if (document.getElementById("mentordetails")) {
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = [{"name":"John","surname":"Smith","tags":["IT","Economics"]},{"name":"Alan","surname":"Bet","tags":["Art","Economics"]},{"name":"Zuzka","surname":"D","tags":["IT","Art"]},{"name":"Mari","surname":"D","tags":["IT","Vis"]},{"name":"Mari","surname":"D","tags":["IT","Art"]},{"name":"Mari","surname":"D","tags":["Medical","Vis"]}]
+module.exports = [{"name":"Honza","surname":"Hrkal","keywords":["Marketing","Management"],"places":["Germany","Netherlands"]},{"name":"Betka","surname":"Mayova","keywords":["Finance","Economics"],"places":["India","UK"]},{"name":"Zuzka","surname":"Dostalova","keywords":["IT","Art"],"places":["Prague","Munich"]},{"name":"Mari","surname":"Danielova","keywords":["IT","Vis"],"places":["Prague","Dresden"]},{"name":"Mari","surname":"D","keywords":["IT","Art"],"places":["Prague","Wien"]},{"name":"Mari","surname":"D","keywords":["Medical","Vis"],"places":["Prague","Sweden"]}]
 
 /***/ }),
 /* 2 */
@@ -108,9 +108,9 @@ module.exports = [{"name":"John","surname":"Smith","tags":["IT","Economics"]},{"
 
 Object.defineProperty(exports, "__esModule", { value: true });
 class MentorCard {
-    constructor(id, test) {
-        this.test = test;
-        this.data = test.getData();
+    constructor(id, mentorData) {
+        this.mentorData = mentorData;
+        this.data = mentorData.getData();
         const mentorsDiv = document.getElementById(id);
         this.data.forEach((mentor, mentorIdx) => {
             let cardDiv = document.createElement("div");
@@ -123,11 +123,12 @@ class MentorCard {
     createInnerHtml(mentor, mentorIdx) {
         return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
-            '<img src="img/dummy-profile-image.jpg" class="img-circle float-center">\n' +
+            '<img src="img/dummy-profile-image.png" class="img-circle float-center">\n' +
             '<div class="card-section">\n' +
             `<h4 class="text-center">${mentor.name} ${mentor.surname}</h4>\n` +
             '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
-            this.test.createTags(mentorIdx) +
+            this.mentorData.createTags(mentorIdx, "keywords") +
+            this.mentorData.createTags(mentorIdx, "places") +
             '</div>\n' +
             '</div>\n' +
             '</a>\n';
@@ -137,15 +138,15 @@ class MentorCard {
             this.data.forEach((mentor, mentorIdx) => {
                 let labels = document.getElementById(`mentor-${mentorIdx}`).getElementsByClassName("label");
                 for (let label of labels) {
-                    label.className = "label secondary";
+                    label.className = "label label-not-selected";
                 }
                 let searchSuccess = false;
                 tagsArray.forEach(searchTag => {
-                    if (mentor.tags.indexOf(searchTag) > -1) {
+                    if (mentor.keywords.indexOf(searchTag) > -1) {
                         searchSuccess = true;
                         for (let label of labels) {
                             if (label.innerHTML === searchTag) {
-                                label.className = "label primary";
+                                label.className = "label label-selected";
                             }
                         }
                     }
@@ -179,9 +180,11 @@ class MentorData {
         this.jsonData = jsonData;
         this.mentorIdList = new Array();
         this.tagList = new Array();
+        this.placeList = new Array();
         jsonData.forEach(mentor => {
             mentor.id = this.createAvailableId(mentor.name, mentor.surname);
-            this.updateTagList(mentor.tags);
+            this.updateList(this.tagList, mentor.keywords);
+            this.updateList(this.placeList, mentor.places);
         });
     }
     createAvailableId(name, surname) {
@@ -194,10 +197,10 @@ class MentorData {
         this.mentorIdList.push(id);
         return id;
     }
-    updateTagList(tags) {
-        tags.forEach(tag => {
-            if (this.tagList.indexOf(tag) === -1) {
-                this.tagList.push(tag);
+    updateList(list, elements) {
+        elements.forEach(element => {
+            if (list.indexOf(element) === -1) {
+                list.push(element);
             }
         });
     }
@@ -210,12 +213,12 @@ class MentorData {
     getMentorName(idx) {
         return `${this.jsonData[idx].name} ${this.jsonData[idx].surname}`;
     }
-    createTags(idx) {
+    createTags(idx, tagGroup) {
         let tagString = "";
-        this.jsonData[idx].tags.forEach(tag => {
-            tagString = tagString + `<span class="label secondary">${tag}</span>\n`;
+        this.jsonData[idx][tagGroup].forEach(tag => {
+            tagString = tagString + `<span class="label label-not-selected">${tag}</span>\n`;
         });
-        return tagString;
+        return "<div>" + tagString + "</div>\n";
     }
     getMentorIdxFromId(id) {
         let index = 0;

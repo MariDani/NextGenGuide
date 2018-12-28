@@ -1,27 +1,33 @@
 [{
-    "name": "John",
-    "surname": "Smith",
-    "tags": ["IT", "Economics"]
+    "name": "Honza",
+    "surname": "Hrkal",
+    "keywords": ["Marketing", "Management"],
+    "places": ["Germany", "Netherlands"]
 },
 {
-    "name": "Alan",
-    "surname": "Bet",
-    "tags": ["Art", "Economics"]
+    "name": "Betka",
+    "surname": "Mayova",
+    "keywords": ["Finance", "Economics"],
+    "places": ["India", "UK"]
 },
 {
     "name": "Zuzka",
-    "surname": "D",
-    "tags": ["IT", "Art"]
+    "surname": "Dostalova",
+    "keywords": ["IT", "Art"],
+    "places": ["Prague", "Munich"]
+},{
+    "name": "Mari",
+    "surname": "Danielova",
+    "keywords": ["IT", "Vis"],
+    "places": ["Prague", "Dresden"]
 },{
     "name": "Mari",
     "surname": "D",
-    "tags": ["IT", "Vis"]
+    "keywords": ["IT", "Art"],
+    "places": ["Prague", "Wien"]
 },{
     "name": "Mari",
     "surname": "D",
-    "tags": ["IT", "Art"]
-},{
-    "name": "Mari",
-    "surname": "D",
-    "tags": ["Medical", "Vis"]
+    "keywords": ["Medical", "Vis"],
+    "places": ["Prague", "Sweden"]
 }]

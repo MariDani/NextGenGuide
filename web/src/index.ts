@@ -24,5 +24,5 @@ if (document.getElementById("mentordetails")) {
     const mentorIdx = mentorsData.getMentorIdxFromId(regex.exec(window.location.search)[1]);
 
     document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentorIdx);
-    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx);
+    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx, "keywords") + mentorsData.createTags(mentorIdx, "places");
 }

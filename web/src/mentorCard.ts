@@ -1,11 +1,11 @@
-import {MentorDataProperties} from "./mentorData";
+import MentorData, {MentorDataProperties} from "./mentorData";
 
 export default class MentorCard {
     data: Array<MentorDataProperties>;
 
-    constructor(id: string, private test: any) {
+    constructor(id: string, private mentorData: MentorData) {
         
-        this.data = test.getData();
+        this.data = mentorData.getData();
 
         const mentorsDiv = document.getElementById(id);
 
@@ -22,11 +22,12 @@ export default class MentorCard {
     private createInnerHtml(mentor: MentorDataProperties, mentorIdx: number) {
         return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
-            '<img src="img/dummy-profile-image.jpg" class="img-circle float-center">\n' +
+            '<img src="img/dummy-profile-image.png" class="img-circle float-center">\n' +
             '<div class="card-section">\n' +
             `<h4 class="text-center">${mentor.name} ${mentor.surname}</h4>\n` +
             '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
-            this.test.createTags(mentorIdx) +
+            this.mentorData.createTags(mentorIdx, "keywords") + 
+            this.mentorData.createTags(mentorIdx, "places") +
             '</div>\n' +
             '</div>\n' +
             '</a>\n';
@@ -39,18 +40,18 @@ export default class MentorCard {
 
                 let labels = document.getElementById(`mentor-${mentorIdx}`).getElementsByClassName("label");
                 for (let label of labels) {
-                    label.className = "label secondary"
+                    label.className = "label label-not-selected"
                 }
 
                 let searchSuccess = false;
                 tagsArray.forEach(searchTag => {
 
-                    if (mentor.tags.indexOf(searchTag) > -1) {
+                    if (mentor.keywords.indexOf(searchTag) > -1) {
                         searchSuccess = true;
 
                         for (let label of labels) {
                             if (label.innerHTML === searchTag) {
-                                label.className = "label primary"
+                                label.className = "label label-selected"
                             }
                         }
                     }

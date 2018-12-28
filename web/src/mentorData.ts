@@ -1,26 +1,30 @@
 export interface MentorDataProperties {
     name: string,
     surname: string,
-    tags: Array<string>,
+    keywords: Array<string>,
+    places: Array<string>,
     id?: string;
 }
 
+type Tag = "keywords" | "places";
 
 export default class MentorData {
 
     tagList: Array<string>;
     mentorIdList: Array<string>;
+    placeList: Array<string>;
 
     constructor(public jsonData: Array<MentorDataProperties>) {
 
         this.mentorIdList = new Array();
         this.tagList = new Array();
+        this.placeList = new Array();
 
         jsonData.forEach(mentor => {
             mentor.id = this.createAvailableId(mentor.name, mentor.surname);
-            this.updateTagList(mentor.tags);
+            this.updateList(this.tagList, mentor.keywords);
+            this.updateList(this.placeList, mentor.places);
         });
-
     }
 
     private createAvailableId(name: string, surname: string) {
@@ -35,11 +39,11 @@ export default class MentorData {
         return id;
     }
 
-    private updateTagList(tags: Array<string>) { 
-        tags.forEach(tag => {
-            if (this.tagList.indexOf(tag) === -1) {
-                this.tagList.push(tag);
-            }  
+    private updateList(list: Array<string>, elements: Array<string>) {
+        elements.forEach(element => {
+            if (list.indexOf(element) === -1) {
+                list.push(element);
+            }
         });
     }
 
@@ -51,24 +55,24 @@ export default class MentorData {
         return this.jsonData[idx];
     }
 
-    public getMentorName(idx: number){
+    public getMentorName(idx: number) {
         return `${this.jsonData[idx].name} ${this.jsonData[idx].surname}`;
     }
 
-    public createTags(idx: number) {
+    public createTags(idx: number, tagGroup: Tag) {
         let tagString = "";
-        this.jsonData[idx].tags.forEach(tag => {
-            tagString = tagString + `<span class="label secondary">${tag}</span>\n`;
+        this.jsonData[idx][tagGroup].forEach(tag => {
+            tagString = tagString + `<span class="label label-not-selected">${tag}</span>\n`;
         });
-        return tagString;
+        return "<div>" + tagString + "</div>\n";
     }
 
-    public getMentorIdxFromId(id: string){
+    public getMentorIdxFromId(id: string) {
         let index = 0;
-        while (this.jsonData[index].id != id && index < this.jsonData.length){
+        while (this.jsonData[index].id != id && index < this.jsonData.length) {
             index++;
         }
-       return index;
+        return index;
     }
 
 }
