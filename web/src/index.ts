@@ -1,16 +1,28 @@
-import * as data from '../dist/dummy.json';
-import MentorCard from "./MentorCard";
+import * as jsonData from '../dist/dummy.json';
+import MentorCard from "./mentorCard";
+import MentorData from "./mentorData";
 
-// create mentor cards
-let mentorCards = new MentorCard((<any>data), "mentors");
+let mentorsData = new MentorData((<any>jsonData));
 
-let mentorSearch = document.getElementById("mentor-search");
-mentorSearch.addEventListener("keyup", () => {
-    let searchString = (<HTMLInputElement>mentorSearch).value;
-    console.log(searchString);
 
-    // get search tags
-    let searchTags = searchString.split(",");
-    // hide not selected cards
-    mentorCards.filterByTags(searchTags);
-})
+if (document.getElementById("index")) {
+    // create mentor cards
+    let mentorCards = new MentorCard("mentors", mentorsData);
+
+    // mentor search
+    let mentorSearch = document.getElementById("mentor-search");
+    mentorSearch.addEventListener("keyup", () => {
+        let searchString = (<HTMLInputElement>mentorSearch).value;
+        let searchTags = searchString.split(",");
+        // hide not selected cards
+        mentorCards.filterByTags(searchTags);
+    });
+}
+
+if (document.getElementById("mentordetails")) {
+    const regex = /[?](\w+)/g;
+    const mentorIdx = mentorsData.getMentorIdxFromId(regex.exec(window.location.search)[1]);
+
+    document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentorIdx);
+    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx);
+}

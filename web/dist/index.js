@@ -70,26 +70,35 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const data = __webpack_require__(1);
-const MentorCard_1 = __webpack_require__(2);
-// create mentor cards
-let mentorCards = new MentorCard_1.default(data, "mentors");
-let mentorSearch = document.getElementById("mentor-search");
-mentorSearch.addEventListener("keyup", () => {
-    let searchString = mentorSearch.value;
-    console.log(searchString);
-    // get search tags
-    let searchTags = searchString.split(",");
-    // hide not selected cards
-    mentorCards.filterByTags(searchTags);
-});
+const jsonData = __webpack_require__(1);
+const mentorCard_1 = __webpack_require__(2);
+const mentorData_1 = __webpack_require__(3);
+let mentorsData = new mentorData_1.default(jsonData);
+if (document.getElementById("index")) {
+    // create mentor cards
+    let mentorCards = new mentorCard_1.default("mentors", mentorsData);
+    // mentor search
+    let mentorSearch = document.getElementById("mentor-search");
+    mentorSearch.addEventListener("keyup", () => {
+        let searchString = mentorSearch.value;
+        let searchTags = searchString.split(",");
+        // hide not selected cards
+        mentorCards.filterByTags(searchTags);
+    });
+}
+if (document.getElementById("mentordetails")) {
+    const regex = /[?](\w+)/g;
+    const mentorIdx = mentorsData.getMentorIdxFromId(regex.exec(window.location.search)[1]);
+    document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentorIdx);
+    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx);
+}
 
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = [{"name":"John","surname":"Smith","tags":["IT","Economics"]},{"name":"Alan","surname":"Bet","tags":["Art","Economics"]},{"name":"Zuzka","surname":"D","tags":["IT","Art"]},{"name":"Mari","surname":"D","tags":["IT","Vis"]}]
+module.exports = [{"name":"John","surname":"Smith","tags":["IT","Economics"]},{"name":"Alan","surname":"Bet","tags":["Art","Economics"]},{"name":"Zuzka","surname":"D","tags":["IT","Art"]},{"name":"Mari","surname":"D","tags":["IT","Vis"]},{"name":"Mari","surname":"D","tags":["IT","Art"]},{"name":"Mari","surname":"D","tags":["Medical","Vis"]}]
 
 /***/ }),
 /* 2 */
@@ -99,33 +108,29 @@ module.exports = [{"name":"John","surname":"Smith","tags":["IT","Economics"]},{"
 
 Object.defineProperty(exports, "__esModule", { value: true });
 class MentorCard {
-    constructor(data, id) {
-        this.data = data;
+    constructor(id, test) {
+        this.test = test;
+        this.data = test.getData();
         const mentorsDiv = document.getElementById(id);
-        data.forEach((mentor, mentorIdx) => {
+        this.data.forEach((mentor, mentorIdx) => {
             let cardDiv = document.createElement("div");
+            cardDiv.className = "cell large-3 medium-4";
+            cardDiv.id = `mentor-${mentorIdx}`;
             cardDiv.innerHTML = this.createInnerHtml(mentor, mentorIdx);
             mentorsDiv.appendChild(cardDiv);
         });
     }
     createInnerHtml(mentor, mentorIdx) {
-        return `<div class="cell" id="mentor-${mentorIdx}">\n` +
+        return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
             '<img src="img/dummy-profile-image.jpg">\n' +
             '<div class="card-section">\n' +
             `<h4>${mentor.name} ${mentor.surname}</h4>\n` +
-            '<p>It has an easy to override visual style, and is appropriately subdued.</p>\n' +
-            this.createTags(mentor) +
+            '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
+            this.test.createTags(mentorIdx) +
             '</div>\n' +
             '</div>\n' +
-            '</div>\n';
-    }
-    createTags(mentor) {
-        let tagString = "";
-        mentor.tags.forEach(tag => {
-            tagString = tagString + `<span class="label secondary">${tag}</span>\n`;
-        });
-        return tagString;
+            '</a>\n';
     }
     filterByTags(tagsArray) {
         if (tagsArray[0] != "") {
@@ -160,6 +165,67 @@ class MentorCard {
     }
 }
 exports.default = MentorCard;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class MentorData {
+    constructor(jsonData) {
+        this.jsonData = jsonData;
+        this.mentorIdList = new Array();
+        this.tagList = new Array();
+        jsonData.forEach(mentor => {
+            mentor.id = this.createAvailableId(mentor.name, mentor.surname);
+            this.updateTagList(mentor.tags);
+        });
+    }
+    createAvailableId(name, surname) {
+        let id = `${name.toLowerCase()}${surname.toLowerCase()}`;
+        let index = 1;
+        while (this.mentorIdList.includes(id)) {
+            index++;
+            id = id.replace(/\d+/g, '') + index;
+        }
+        this.mentorIdList.push(id);
+        return id;
+    }
+    updateTagList(tags) {
+        tags.forEach(tag => {
+            if (this.tagList.indexOf(tag) === -1) {
+                this.tagList.push(tag);
+            }
+        });
+    }
+    getData() {
+        return this.jsonData;
+    }
+    getMentorByIdx(idx) {
+        return this.jsonData[idx];
+    }
+    getMentorName(idx) {
+        return `${this.jsonData[idx].name} ${this.jsonData[idx].surname}`;
+    }
+    createTags(idx) {
+        let tagString = "";
+        this.jsonData[idx].tags.forEach(tag => {
+            tagString = tagString + `<span class="label secondary">${tag}</span>\n`;
+        });
+        return tagString;
+    }
+    getMentorIdxFromId(id) {
+        let index = 0;
+        while (this.jsonData[index].id != id && index < this.jsonData.length) {
+            index++;
+        }
+        return index;
+    }
+}
+exports.default = MentorData;
 
 
 /***/ })
