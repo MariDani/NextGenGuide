@@ -22,9 +22,9 @@ export default class MentorCard {
     private createInnerHtml(mentor: MentorDataProperties, mentorIdx: number) {
         return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
-            '<img src="img/dummy-profile-image.jpg">\n' +
+            '<img src="img/dummy-profile-image.jpg" class="img-circle float-center">\n' +
             '<div class="card-section">\n' +
-            `<h4>${mentor.name} ${mentor.surname}</h4>\n` +
+            `<h4 class="text-center">${mentor.name} ${mentor.surname}</h4>\n` +
             '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
             this.test.createTags(mentorIdx) +
             '</div>\n' +

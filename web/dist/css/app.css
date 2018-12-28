@@ -3,6 +3,36 @@ body {
   background-blend-mode: screen;
 }
 
+.top-bar {
+  background-color: #39CCCC;
+}
+.top-bar a {
+  opacity: 1;
+}
+
+.top-bar ul {
+  background-color: #39CCCC;
+}
+
+a:hover {
+  transition: opacity .15s ease-out;
+  -webkit-transition: opacity .15s ease-out;
+  text-decoration: none;
+}
+
+.mentor-card, .mentor-detail-card {
+  border: none;
+}
+
+.img-circle {
+  border-radius: 50%;
+  max-width: 50%;
+}
+
+#mentors > div{
+  padding: 15px;
+}
+
 .responsive {
     width: 100%;
     height: auto;
