@@ -3,10 +3,10 @@ const pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432';
 
 const client = new pg.Client({
-  user: 'arnoldov',
-  host: 'localhost',
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,    
   database: 'next-gen-guide-development',
-  password: '',
   port: 5432,
 })
 
