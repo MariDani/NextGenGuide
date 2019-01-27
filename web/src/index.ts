@@ -1,12 +1,24 @@
 import * as jsonData from '../dist/dummy.json';
+import axios from "axios"
 import MentorCard from "./mentorCard";
 import MentorData from "./mentorData";
+
+// const url = "localhost:3000/absolvents";
+
+// axios({
+//     method: "get",
+//     url: url,
+//     withCredentials: true
+// }).then(data => {
+//     console.log(data);
+// })
 
 let mentorsData = new MentorData((<any>jsonData));
 
 
 if (document.getElementById("index")) {
     // create mentor cards
+
     let mentorCards = new MentorCard("mentors", mentorsData);
 
     // mentor search
