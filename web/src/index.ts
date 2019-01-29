@@ -3,7 +3,7 @@ import axios from "axios"
 import MentorCard from "./mentorCard";
 import MentorData from "./mentorData";
 
-const url = "http://localhost:3000/absolvents";
+const url = "http://localhost:3000/mentors";
 
 axios({
     method: "get",

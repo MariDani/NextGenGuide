@@ -12,8 +12,17 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/absolvents', (req, res, next) => {
-  db.query('SELECT * FROM absolvents', (err, dbRes) => {
+app.get('/mentors', (req, res, next) => {
+  db.query('SELECT * FROM mentors', (err, dbRes) => {
+    if (err) {
+      return next(err)
+    }
+    res.json(dbRes.rows)
+  })
+});
+
+app.get('/mentees', (req, res, next) => {
+  db.query('SELECT * FROM mentees', (err, dbRes) => {
     if (err) {
       return next(err)
     }
