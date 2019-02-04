@@ -44,6 +44,7 @@ CREATE TABLE mentees (first_name varchar(40),
 
 -- Insert some values
 INSERT INTO mentors VALUES ('Zuzana',
+  DEFAULT,
   'Arnoldova',
   'Gymnazium na Zatlance',
   2009,
@@ -71,6 +72,7 @@ INSERT INTO mentors VALUES ('Zuzana',
   'zuzana@gmail.com');
 
 INSERT INTO mentees VALUES ('John',
+  DEFAULT,
   'Doe',
   'Gymnazium Boticska',
   '2019',
