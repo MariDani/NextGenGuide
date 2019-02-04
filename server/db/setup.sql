@@ -6,6 +6,7 @@ CREATE DATABASE "next-gen-guide-development" TEMPLATE template0;
 
 -- Create table
 CREATE TABLE mentors (first_name varchar(40),
+  id SERIAL PRIMARY KEY,
   last_name varchar(40),
   high_school_name varchar(40),
   maturita_year integer,
@@ -30,9 +31,11 @@ CREATE TABLE mentors (first_name varchar(40),
   previous_role varchar(40),
   previous_company varchar(40),
   previous_country varchar(40),
+  image_url varchar(40),
   email varchar(40));
 
 CREATE TABLE mentees (first_name varchar(40),
+  id SERIAL PRIMARY KEY,
   last_name varchar(40),
   high_school_name varchar(40),
   maturita_year integer,
@@ -64,6 +67,7 @@ INSERT INTO mentors VALUES ('Zuzana',
   'Software Developer',
   'Leedfeader',
   'Finland',
+  'www.image.com/url.jpg',
   'zuzana@gmail.com');
 
 INSERT INTO mentees VALUES ('John',

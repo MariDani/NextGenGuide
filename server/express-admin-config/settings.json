@@ -3,9 +3,8 @@
         "slug": "mentors",
         "table": {
             "name": "mentors",
-            "pk": "",
-            "verbose": "mentors",
-            "schema": "public"
+            "pk": "id",
+            "verbose": "mentors"
         },
         "columns": [
             {
@@ -440,7 +439,7 @@
         "slug": "mentees",
         "table": {
             "name": "mentees",
-            "pk": "",
+            "pk": "id",
             "verbose": "mentees"
         },
         "columns": [
