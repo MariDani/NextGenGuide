@@ -1,0 +1,555 @@
+{
+    "mentors": {
+        "slug": "mentors",
+        "table": {
+            "name": "mentors",
+            "pk": "",
+            "verbose": "mentors",
+            "schema": "public"
+        },
+        "columns": [
+            {
+                "name": "first_name",
+                "verbose": "first_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "last_name",
+                "verbose": "last_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "high_school_name",
+                "verbose": "high_school_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "maturita_year",
+                "verbose": "maturita_year",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "high_school_abroad",
+                "verbose": "high_school_abroad",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "high_school_abroad_country",
+                "verbose": "high_school_abroad_country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_1_name",
+                "verbose": "university_1_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_1_country",
+                "verbose": "university_1_country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_1_program",
+                "verbose": "university_1_program",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_1_grad_year",
+                "verbose": "university_1_grad_year",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_2_name",
+                "verbose": "university_2_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_2_country",
+                "verbose": "university_2_country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_2_program",
+                "verbose": "university_2_program",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_2_grad_year",
+                "verbose": "university_2_grad_year",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_3_name",
+                "verbose": "university_3_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_3_country",
+                "verbose": "university_3_country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_3_program",
+                "verbose": "university_3_program",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "university_3_grad_year",
+                "verbose": "university_3_grad_year",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "working_industry",
+                "verbose": "working_industry",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "role",
+                "verbose": "role",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "company",
+                "verbose": "company",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "country",
+                "verbose": "country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "previous_role",
+                "verbose": "previous_role",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "previous_company",
+                "verbose": "previous_company",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "previous_country",
+                "verbose": "previous_country",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "email",
+                "verbose": "email",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            }
+        ],
+        "mainview": {
+            "show": true
+        },
+        "listview": {
+            "order": {},
+            "page": 25
+        },
+        "editview": {
+            "readonly": false
+        }
+    },
+    "mentees": {
+        "slug": "mentees",
+        "table": {
+            "name": "mentees",
+            "pk": "",
+            "verbose": "mentees"
+        },
+        "columns": [
+            {
+                "name": "first_name",
+                "verbose": "first_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "last_name",
+                "verbose": "last_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "high_school_name",
+                "verbose": "high_school_name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "maturita_year",
+                "verbose": "maturita_year",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "fields_of_interest",
+                "verbose": "fields_of_interest",
+                "control": {
+                    "text": true
+                },
+                "type": "ARRAY",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "email",
+                "verbose": "email",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(40)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            }
+        ],
+        "mainview": {
+            "show": true
+        },
+        "listview": {
+            "order": {},
+            "page": 25
+        },
+        "editview": {
+            "readonly": false
+        }
+    }
+}

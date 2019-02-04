@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon index.js --ignore 'express-admin-config/*'"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "pg": "^7.7.1"
   },
   "devDependencies": {
+    "express-admin": "^1.4.1",
     "nodemon": "^1.18.7"
   }
 }
