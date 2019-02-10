@@ -1,40 +1,35 @@
-import * as jsonData from '../dist/dummy.json';
 import axios from "axios"
 import MentorCard from "./mentorCard";
 import MentorData from "./mentorData";
 
-const url = "http://localhost:3000/mentors";
+const mentorsUrl = "http://localhost:3000/mentors";
 
-axios({
-    method: "get",
-    url: url,
-    withCredentials: true
-}).then(data => {
-    console.log(data);
-})
+let mentorsData;
+let dbData = loadDataFromDB(mentorsUrl);
+dbData.then(data => {
+    mentorsData = new MentorData((<any>data));
 
-let mentorsData = new MentorData((<any>jsonData));
+    if (document.getElementById("index")) {
+        new MentorCard("mentors", mentorsData);
+    }
 
+    else if (document.getElementById("mentordetails")) {
+        const regex = /[?](\w+)/g;
+        const mentor = mentorsData.getMentorById(parseFloat(regex.exec(window.location.search)[1]));
+        document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentor);
+        document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
+    
+    }
+});
 
-if (document.getElementById("index")) {
-    // create mentor cards
-
-    let mentorCards = new MentorCard("mentors", mentorsData);
-
-    // mentor search
-    let mentorSearch = document.getElementById("mentor-search");
-    mentorSearch.addEventListener("keyup", () => {
-        let searchString = (<HTMLInputElement>mentorSearch).value;
-        let searchTags = searchString.split(",");
-        // hide not selected cards
-        mentorCards.filterByTags(searchTags);
+function loadDataFromDB(dataUrl: string) {
+    return new Promise(resolve => {
+        axios({
+            method: "get",
+            url: dataUrl,
+            withCredentials: true
+        }).then(data => {
+            resolve(data.data);
+        });
     });
-}
-
-if (document.getElementById("mentordetails")) {
-    const regex = /[?](\w+)/g;
-    const mentorIdx = mentorsData.getMentorIdxFromId(regex.exec(window.location.search)[1]);
-
-    document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentorIdx);
-    document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentorIdx, "keywords") + mentorsData.createTags(mentorIdx, "places");
 }

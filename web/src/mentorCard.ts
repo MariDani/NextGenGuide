@@ -9,66 +9,65 @@ export default class MentorCard {
 
         const mentorsDiv = document.getElementById(id);
 
-        this.data.forEach((mentor, mentorIdx) => {
+        this.data.forEach((mentor) => {
             let cardDiv = document.createElement("div");
             cardDiv.className = "cell large-3 medium-4";
-            cardDiv.id = `mentor-${mentorIdx}`;
-            cardDiv.innerHTML = this.createInnerHtml(mentor, mentorIdx);
+            cardDiv.id = `mentor-${mentor.id}`;
+            cardDiv.innerHTML = this.createInnerHtml(mentor);
             mentorsDiv.appendChild(cardDiv);
         });
 
     }
 
-    private createInnerHtml(mentor: MentorDataProperties, mentorIdx: number) {
+    private createInnerHtml(mentor: MentorDataProperties) {
         return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
             '<img src="img/dummy-profile-image.png" class="img-circle float-center">\n' +
             '<div class="card-section">\n' +
-            `<h4 class="text-center">${mentor.name} ${mentor.surname}</h4>\n` +
+            `<h4 class="text-center">${mentor.first_name} ${mentor.last_name}</h4>\n` +
             '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
-            this.mentorData.createTags(mentorIdx, "keywords") + 
-            this.mentorData.createTags(mentorIdx, "places") +
+            this.mentorData.createTags(mentor) + 
             '</div>\n' +
             '</div>\n' +
             '</a>\n';
     }
 
 
-    public filterByTags(tagsArray: Array<string>) {
-        if (tagsArray[0] != "") {
-            this.data.forEach((mentor, mentorIdx) => {
+    // public filterByTags(tagsArray: Array<string>) {
+    //     if (tagsArray[0] != "") {
+    //         this.data.forEach((mentor, mentorIdx) => {
 
-                let labels = document.getElementById(`mentor-${mentorIdx}`).getElementsByClassName("label");
-                for (let label of labels) {
-                    label.className = "label label-not-selected"
-                }
+    //             let labels = document.getElementById(`mentor-${mentorIdx}`).getElementsByClassName("label");
+    //             for (let label of labels) {
+    //                 label.className = "label label-not-selected"
+    //             }
 
-                let searchSuccess = false;
-                tagsArray.forEach(searchTag => {
+    //             let searchSuccess = false;
+    //             tagsArray.forEach(searchTag => {
 
-                    if (mentor.keywords.indexOf(searchTag) > -1) {
-                        searchSuccess = true;
+    //                 if (mentor.keywords.indexOf(searchTag) > -1) {
+    //                     searchSuccess = true;
 
-                        for (let label of labels) {
-                            if (label.innerHTML === searchTag) {
-                                label.className = "label label-selected"
-                            }
-                        }
-                    }
+    //                     for (let label of labels) {
+    //                         if (label.innerHTML === searchTag) {
+    //                             label.className = "label label-selected"
+    //                         }
+    //                     }
+    //                 }
 
-                    if (searchSuccess) {
-                        document.getElementById(`mentor-${mentorIdx}`).style.display = "block";
-                    }
-                    else document.getElementById(`mentor-${mentorIdx}`).style.display = "none";
-                });
-            });
+    //                 if (searchSuccess) {
+    //                     document.getElementById(`mentor-${mentorIdx}`).style.display = "block";
+    //                 }
+    //                 else document.getElementById(`mentor-${mentorIdx}`).style.display = "none";
+    //             });
+    //         });
 
-        }
-        else {
-            this.data.forEach((mentor, mentorIdx) => {
-                document.getElementById(`mentor-${mentorIdx}`).style.display = "block";
-            })
-        }
+    //     }
+    //     else {
+    //         this.data.forEach((mentor, mentorIdx) => {
+    //             document.getElementById(`mentor-${mentorIdx}`).style.display = "block";
+    //         })
+    //     }
 
-    }
+    // }
 }
