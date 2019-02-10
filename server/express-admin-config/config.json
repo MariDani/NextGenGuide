@@ -1,7 +1,7 @@
 {
     "pg": {
         "database": "next-gen-guide-development",
-        "user": "marianadanielova",
+        "user": "arnoldov",
         "password": "1",
         "schema": "public"
     },

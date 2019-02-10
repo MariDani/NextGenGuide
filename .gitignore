@@ -82,4 +82,3 @@ caddy.exe
 web/dist/caddy
 web/dist/index.js
 web/dist/index.js
-server/package-lock.json
