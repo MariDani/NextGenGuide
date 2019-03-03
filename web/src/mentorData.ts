@@ -81,12 +81,23 @@ export default class MentorData {
         return "<div>" + tagString + "</div>\n";
     }
 
-    // public getMentorIdxFromId(id: string) {
-    //     let index = 0;
-    //     while (this.jsonData[index].id != id && index < this.jsonData.length) {
-    //         index++;
-    //     }
-    //     return index;
-    // }
+    public getCurrentRole(mentor: MentorDataProperties) {
+        let currentRoleString = 
+        `<h7 class="subheader"><small>Current role</small></h7>\n` +
+            `<div class="large-offset-2 medium-offset-2">\n` +
+              `<ul class="no-bullet">\n`;
+        
+        if (mentor.role) currentRoleString += `<li>${mentor.role}</li>\n`;
+        if (mentor.working_industry) currentRoleString += `<li>${mentor.working_industry}</li>\n`;
+        if (mentor.company) {
+            if (mentor.country) currentRoleString += `<li>${mentor.company}, ${mentor.country}</li>\n`;
+            else `<li>${mentor.company}</li>\n`
+        }
+
+        currentRoleString += 
+                `</ul>\n` +
+                `</div>`
+        return currentRoleString
+    }
 
 }

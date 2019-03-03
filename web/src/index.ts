@@ -2,7 +2,7 @@ import axios from "axios"
 import MentorCard from "./mentorCard";
 import MentorData from "./mentorData";
 
-const mentorsUrl = "http://localhost:3000/mentors";
+const mentorsUrl = "https://next-gen.herokuapp.com/mentors"//"http://localhost:3000/mentors";
 
 let mentorsData;
 let dbData = loadDataFromDB(mentorsUrl);
@@ -16,8 +16,11 @@ dbData.then(data => {
     else if (document.getElementById("mentordetails")) {
         const regex = /[?](\w+)/g;
         const mentor = mentorsData.getMentorById(parseFloat(regex.exec(window.location.search)[1]));
-        document.getElementById("mentor-name").innerHTML = mentorsData.getMentorName(mentor);
-        document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
+        // create name
+        document.getElementById("mentor-name").innerHTML = `<h4>${mentorsData.getMentorName(mentor)}</h4>`;
+
+        document.getElementById("current-role").innerHTML = mentorsData.getCurrentRole(mentor);
+        // document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
     
     }
 });
