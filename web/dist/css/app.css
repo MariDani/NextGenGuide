@@ -15,6 +15,22 @@ body {
   background-color: #98AFBA;
 }
 
+#top-bar-logo img {
+  max-height: 5em;
+}
+
+#top-bar-logo a {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#top-bar-logo li{
+  display: flex;
+  justify-content:center;
+  align-content:center;
+  flex-direction:column; /* column | row */
+}
+
 a:hover {
   opacity: 0.75;
   transition: opacity .15s ease-out;
@@ -76,7 +92,7 @@ a:hover {
   }
 
   .contact-me {
-    background-color: #80c2e1;
+    background-color: #7eb4da;
     color: whitesmoke;
     border-radius: 0.5em;
   }

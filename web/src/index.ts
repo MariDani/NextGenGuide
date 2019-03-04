@@ -16,10 +16,12 @@ dbData.then(data => {
     else if (document.getElementById("mentordetails")) {
         const regex = /[?](\w+)/g;
         const mentor = mentorsData.getMentorById(parseFloat(regex.exec(window.location.search)[1]));
-        // create name
         document.getElementById("mentor-name").innerHTML = `<h4>${mentorsData.getMentorName(mentor)}</h4>`;
-
         document.getElementById("current-role").innerHTML = mentorsData.getCurrentRole(mentor);
+        document.getElementById("previous-role").innerHTML = mentorsData.getPreviousRole(mentor);
+        document.getElementById("university").innerHTML = mentorsData.getUniversity(mentor);
+        document.getElementById("high-school").innerHTML = mentorsData.getHighSchool(mentor);
+        document.getElementById("description").innerHTML = mentorsData.getDescription(mentor);
         // document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
     
     }

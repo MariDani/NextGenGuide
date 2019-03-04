@@ -957,9 +957,12 @@ dbData.then(data => {
     else if (document.getElementById("mentordetails")) {
         const regex = /[?](\w+)/g;
         const mentor = mentorsData.getMentorById(parseFloat(regex.exec(window.location.search)[1]));
-        // create name
         document.getElementById("mentor-name").innerHTML = `<h4>${mentorsData.getMentorName(mentor)}</h4>`;
         document.getElementById("current-role").innerHTML = mentorsData.getCurrentRole(mentor);
+        document.getElementById("previous-role").innerHTML = mentorsData.getPreviousRole(mentor);
+        document.getElementById("university").innerHTML = mentorsData.getUniversity(mentor);
+        document.getElementById("high-school").innerHTML = mentorsData.getHighSchool(mentor);
+        document.getElementById("description").innerHTML = mentorsData.getDescription(mentor);
         // document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
     }
 });
@@ -1940,29 +1943,128 @@ class MentorData {
     }
     createTags(mentor) {
         let tagString = "";
-        [mentor.role, mentor.country].forEach(tag => {
-            tagString = tagString + `<span class="label label-not-selected">${tag}</span>\n`;
+        [mentor.role, mentor.company].forEach((tag, i) => {
+            tagString = tagString + `<span class="label ${i > 0 ? "label-not-selected" : "label-selected"}">${tag}</span>\n`;
         });
         return "<div>" + tagString + "</div>\n";
     }
     getCurrentRole(mentor) {
-        let currentRoleString = `<h7 class="subheader"><small>Current role</small></h7>\n` +
-            `<div class="large-offset-2 medium-offset-2">\n` +
-            `<ul class="no-bullet">\n`;
-        if (mentor.role)
-            currentRoleString += `<li>${mentor.role}</li>\n`;
-        if (mentor.working_industry)
-            currentRoleString += `<li>${mentor.working_industry}</li>\n`;
-        if (mentor.company) {
-            if (mentor.country)
-                currentRoleString += `<li>${mentor.company}, ${mentor.country}</li>\n`;
-            else
-                `<li>${mentor.company}</li>\n`;
+        let htmlString = "";
+        if (mentor.role) {
+            htmlString += `<h7 class="subheader"><small>Current role</small></h7>\n` +
+                `<div class="large-offset-2 medium-offset-2">\n` +
+                `<ul class="no-bullet">\n`;
+            htmlString += `<li>${mentor.role}</li>\n`;
+            if (mentor.working_industry)
+                htmlString += `<li>${mentor.working_industry}</li>\n`;
+            if (mentor.company) {
+                if (mentor.country)
+                    htmlString += `<li>${mentor.company}, ${mentor.country}</li>\n`;
+                else
+                    `<li>${mentor.company}</li>\n`;
+            }
+            htmlString +=
+                `</ul>\n` +
+                    `</div>`;
         }
-        currentRoleString +=
-            `</ul>\n` +
+        return htmlString;
+    }
+    getPreviousRole(mentor) {
+        let htmlString = "";
+        if (mentor.previous_role) {
+            htmlString += `<h7 class="subheader"><small>Previous role</small></h7>\n` +
+                `<div class="large-offset-2 medium-offset-2">\n` +
+                `<ul class="no-bullet">\n`;
+            htmlString += `<li>${mentor.previous_role}`;
+            if (mentor.previous_company)
+                htmlString += `, ${mentor.previous_company}`;
+            if (mentor.previous_country)
+                htmlString += `, ${mentor.previous_country}`;
+            htmlString += `</li>\n`;
+            htmlString +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        return htmlString;
+    }
+    getHighSchool(mentor) {
+        let htmlString = "";
+        if (mentor.high_school_name || mentor.high_school_abroad) {
+            htmlString +=
+                `<h7 class="subheader"><small>High school education</small></h7>\n` +
+                    `<div class="large-offset-1 medium-offset-1">\n` +
+                    `<ul class="no-bullet">\n`;
+            if (mentor.high_school_name) {
+                htmlString += `<li>${mentor.high_school_name}`;
+                if (mentor.maturita_year)
+                    htmlString += `<small>, graduated ${mentor.maturita_year}</small>`;
+                htmlString += `</li>\n`;
+            }
+            if (mentor.high_school_abroad) {
+                htmlString += `<li>${mentor.high_school_abroad}`;
+                if (mentor.high_school_abroad_country)
+                    htmlString += `, ${mentor.high_school_abroad_country}`;
+                htmlString += `</li>\n`;
+            }
+            htmlString +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        return htmlString;
+    }
+    getUniversity(mentor) {
+        let htmlString = "";
+        if (mentor.university_1_name || mentor.university_2_name || mentor.university_3_name) {
+            htmlString += `<h7 class="subheader"><small>University education</small></h7>\n` +
+                `<div class="large-offset-1 medium-offset-1">\n` +
+                `<ul class="no-bullet">\n`;
+            if (mentor.university_1_name) {
+                htmlString += `<li>${mentor.university_1_name}`;
+                if (mentor.university_1_program)
+                    htmlString += `, ${mentor.university_1_program}`;
+                if (mentor.university_1_country)
+                    htmlString += `, ${mentor.university_1_country}`;
+                if (mentor.university_1_grad_year)
+                    htmlString += `<small>, graduated ${mentor.university_1_grad_year}</small>`;
+                htmlString += `</li>\n`;
+            }
+            if (mentor.university_2_name) {
+                htmlString += `<li>${mentor.university_2_name}`;
+                if (mentor.university_2_program)
+                    htmlString += `, ${mentor.university_2_program}`;
+                if (mentor.university_2_country)
+                    htmlString += `, ${mentor.university_2_country}`;
+                if (mentor.university_2_grad_year)
+                    htmlString += `<small>, graduated ${mentor.university_2_grad_year}</small>`;
+                htmlString += `</li>\n`;
+            }
+            if (mentor.university_3_name) {
+                htmlString += `<li>${mentor.university_3_name}`;
+                if (mentor.university_3_program)
+                    htmlString += `, ${mentor.university_3_program}`;
+                if (mentor.university_3_country)
+                    htmlString += `, ${mentor.university_3_country}`;
+                if (mentor.university_3_grad_year)
+                    htmlString += `<small>, graduated ${mentor.university_3_grad_year}</small>`;
+                htmlString += `</li>\n`;
+            }
+            htmlString +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        return htmlString;
+    }
+    getDescription(mentor) {
+        let htmlString = "";
+        if (mentor.description) {
+            htmlString =
+                `<h7 class="subheader"><small>Description</small></h7>\n` +
+                    `<div class="large-offset-1 medium-offset-1">\n`;
+            htmlString += `<p>${mentor.description}</p>`;
+            htmlString +=
                 `</div>`;
-        return currentRoleString;
+        }
+        return htmlString;
     }
 }
 exports.default = MentorData;
