@@ -13,6 +13,10 @@
     "url": "https://github.com/MariDani/NextGenGuide/issues"
   },
   "homepage": "https://github.com/MariDani/NextGenGuide#readme",
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
   "dependencies": {
     "@types/request": "^2.48.1",
     "axios": "^0.18.0",
@@ -31,6 +35,7 @@
   },
   "scripts": {
     "build": "webpack --progress --colors --display-error-details",
+    "postinstall": "webpack --progress --colors --display-error-details",
     "watch": "webpack --progress --colors --display-error-details --display-modules --display-exclude --watch",
     "server": "webpack-dev-server --content-base ./dist"
   }
