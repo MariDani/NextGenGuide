@@ -36,6 +36,7 @@
   "scripts": {
     "build": "webpack --progress --colors --display-error-details",
     "postinstall": "webpack --progress --colors --display-error-details",
+    "start": "node server.js",
     "watch": "webpack --progress --colors --display-error-details --display-modules --display-exclude --watch",
     "server": "webpack-dev-server --content-base ./dist"
   }
