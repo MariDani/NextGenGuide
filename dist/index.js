@@ -943,39 +943,15 @@ module.exports = Cancel;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __webpack_require__(9);
-const mentorCard_1 = __webpack_require__(28);
-const mentorData_1 = __webpack_require__(29);
-const mentorsUrl = "https://next-gen.herokuapp.com/mentors"; //"http://localhost:3000/mentors";
-let mentorsData;
-let dbData = loadDataFromDB(mentorsUrl);
-dbData.then(data => {
-    mentorsData = new mentorData_1.default(data);
-    if (document.getElementById("index")) {
-        new mentorCard_1.default("mentors", mentorsData);
-    }
-    else if (document.getElementById("mentordetails")) {
-        const regex = /[?](\w+)/g;
-        const mentor = mentorsData.getMentorById(parseFloat(regex.exec(window.location.search)[1]));
-        document.getElementById("mentor-name").innerHTML = `<h4>${mentorsData.getMentorName(mentor)}</h4>`;
-        document.getElementById("current-role").innerHTML = mentorsData.getCurrentRole(mentor);
-        document.getElementById("previous-role").innerHTML = mentorsData.getPreviousRole(mentor);
-        document.getElementById("university").innerHTML = mentorsData.getUniversity(mentor);
-        document.getElementById("high-school").innerHTML = mentorsData.getHighSchool(mentor);
-        document.getElementById("description").innerHTML = mentorsData.getDescription(mentor);
-        // document.getElementById("mentor-detail").innerHTML += mentorsData.createTags(mentor);
-    }
-});
-function loadDataFromDB(dataUrl) {
-    return new Promise(resolve => {
-        axios_1.default({
-            method: "get",
-            url: dataUrl,
-            withCredentials: true
-        }).then(data => {
-            resolve(data.data);
-        });
-    });
+const mentorCards_1 = __webpack_require__(31);
+const mentorDetail_1 = __webpack_require__(30);
+const dbUrl = "https://next-gen.herokuapp.com"; //"http://localhost:3000/mentors";
+if (document.getElementById("mentordetails")) {
+    const regex = /[?](\w+)/g;
+    new mentorDetail_1.default(dbUrl, parseFloat(regex.exec(window.location.search)[1]));
+}
+if (document.getElementById("index")) {
+    new mentorCards_1.default(dbUrl);
 }
 
 
@@ -1868,18 +1844,185 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 28 */
+/* 28 */,
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class MentorCard {
-    constructor(id, mentorData) {
-        this.mentorData = mentorData;
-        this.data = mentorData.getData();
-        const mentorsDiv = document.getElementById(id);
-        this.data.forEach((mentor) => {
+const mentorCards_1 = __webpack_require__(31);
+class MentorDetail {
+    constructor(dbUrl, id) {
+        const mentorDataPromise = mentorCards_1.loadDataFromDB(`${mentorCards_1.checkUrl(dbUrl)}/mentors/${id}`);
+        mentorDataPromise.then(data => {
+            const mentors = data;
+            if (mentors.length > 0) {
+                this.mentor = mentors[0];
+                this.createMentorProfile();
+            }
+            //  TO DO: what shall be displayed if ID does not exist
+        });
+    }
+    createMentorProfile() {
+        this.showMentorName();
+        this.showTags();
+        this.showProfilePicture();
+        this.showCurrentRole();
+        this.showPreviousRole();
+        this.showUniversity();
+        this.showHighSchool();
+        this.showDescription();
+    }
+    showMentorName() {
+        document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`;
+    }
+    showTags() {
+        document.getElementById("mentor-tags").innerHTML = createTags(this.mentor);
+    }
+    showProfilePicture() {
+        document.getElementById("mentor-pic-detail").src = this.mentor.image_url;
+    }
+    showCurrentRole() {
+        let currRoleHtml = "";
+        if (this.mentor.role) {
+            currRoleHtml += `<h7 class="subheader"><small>Current role</small></h7>\n` +
+                `<div class="large-offset-2 medium-offset-2">\n` +
+                `<ul class="no-bullet">\n`;
+            currRoleHtml += `<li>${this.mentor.role}</li>\n`;
+            if (this.mentor.working_industry)
+                currRoleHtml += `<li>${this.mentor.working_industry}</li>\n`;
+            if (this.mentor.company) {
+                if (this.mentor.country)
+                    currRoleHtml += `<li>${this.mentor.company}, ${this.mentor.country}</li>\n`;
+                else
+                    `<li>${this.mentor.company}</li>\n`;
+            }
+            currRoleHtml +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        document.getElementById("current-role").innerHTML = currRoleHtml;
+    }
+    showPreviousRole() {
+        let prevRoleHtml = "";
+        if (this.mentor.previous_role) {
+            prevRoleHtml += `<h7 class="subheader"><small>Previous role</small></h7>\n` +
+                `<div class="large-offset-2 medium-offset-2">\n` +
+                `<ul class="no-bullet">\n`;
+            prevRoleHtml += `<li>${this.mentor.previous_role}`;
+            if (this.mentor.previous_company)
+                prevRoleHtml += `, ${this.mentor.previous_company}`;
+            if (this.mentor.previous_country)
+                prevRoleHtml += `, ${this.mentor.previous_country}`;
+            prevRoleHtml += `</li>\n`;
+            prevRoleHtml +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        document.getElementById("previous-role").innerHTML = prevRoleHtml;
+    }
+    showHighSchool() {
+        let highSchHtml = "";
+        if (this.mentor.high_school_name || this.mentor.high_school_abroad) {
+            highSchHtml +=
+                `<h7 class="subheader"><small>High school education</small></h7>\n` +
+                    `<div class="large-offset-1 medium-offset-1">\n` +
+                    `<ul class="no-bullet">\n`;
+            if (this.mentor.high_school_name) {
+                highSchHtml += `<li>${this.mentor.high_school_name}`;
+                if (this.mentor.maturita_year)
+                    highSchHtml += `<small>, graduated ${this.mentor.maturita_year}</small>`;
+                highSchHtml += `</li>\n`;
+            }
+            if (this.mentor.high_school_abroad) {
+                highSchHtml += `<li>${this.mentor.high_school_abroad}`;
+                if (this.mentor.high_school_abroad_country)
+                    highSchHtml += `, ${this.mentor.high_school_abroad_country}`;
+                highSchHtml += `</li>\n`;
+            }
+            highSchHtml +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        document.getElementById("high-school").innerHTML = highSchHtml;
+    }
+    showUniversity() {
+        let uniHtml = "";
+        if (this.mentor.university_1_name || this.mentor.university_2_name || this.mentor.university_3_name) {
+            uniHtml += `<h7 class="subheader"><small>University education</small></h7>\n` +
+                `<div class="large-offset-1 medium-offset-1">\n` +
+                `<ul class="no-bullet">\n`;
+            for (let idx = 1; idx <= 3; idx++) {
+                if (this.mentor[`university_${idx}_name`]) {
+                    const _name = this.mentor[`university_${idx}_name`];
+                    uniHtml += `<li>${_name}`;
+                }
+                if (this.mentor[`university_${idx}_program`]) {
+                    const _program = this.mentor[`university_${idx}_program`];
+                    uniHtml += `, ${_program}`;
+                }
+                if (this.mentor[`university_${idx}_country`]) {
+                    const _country = this.mentor[`university_${idx}_country`];
+                    uniHtml += `, ${_country}`;
+                }
+                if (this.mentor[`university_${idx}_grad_year`]) {
+                    const _grad_year = this.mentor[`university_${idx}_grad_year`];
+                    uniHtml += `<small>, ${_grad_year}</small>`;
+                }
+                uniHtml += `</li>\n`;
+            }
+            uniHtml +=
+                `</ul>\n` +
+                    `</div>`;
+        }
+        document.getElementById("university").innerHTML = uniHtml;
+    }
+    showDescription() {
+        let descHtml = "";
+        if (this.mentor.description) {
+            descHtml =
+                `<h7 class="subheader"><small>Description</small></h7>\n` +
+                    `<div class="large-offset-1 medium-offset-1">\n`;
+            descHtml += `<p>${this.mentor.description}</p>`;
+            descHtml +=
+                `</div>`;
+        }
+        document.getElementById("description").innerHTML = descHtml;
+    }
+}
+exports.default = MentorDetail;
+function createTags(mentor) {
+    let tagHtml = "";
+    [mentor.working_industry, mentor.country].forEach((tag, i) => {
+        tagHtml = tagHtml + `<span class="label ${i > 0 ? "label-not-selected" : "label-selected"}">${tag}</span>\n`;
+    });
+    return "<div>" + tagHtml + "</div>\n";
+}
+exports.createTags = createTags;
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __webpack_require__(9);
+const mentorDetail_1 = __webpack_require__(30);
+class MentorCards {
+    constructor(dbUrl) {
+        const mentorDataPromise = loadDataFromDB(`${checkUrl(dbUrl)}/mentors`);
+        mentorDataPromise.then(data => {
+            this.mentors = data;
+            this.createMentorCards();
+        });
+    }
+    createMentorCards() {
+        const mentorsDiv = document.getElementById("mentors");
+        this.mentors.forEach((mentor) => {
             let cardDiv = document.createElement("div");
             cardDiv.className = "cell large-3 medium-4";
             cardDiv.id = `mentor-${mentor.id}`;
@@ -1890,184 +2033,43 @@ class MentorCard {
     createInnerHtml(mentor) {
         return `<a href="mentors.html?${mentor.id}">\n` +
             '<div class="card mentor-card">\n' +
-            '<img src="img/dummy-profile-image.png" class="img-circle float-center">\n' +
+            this.createPicPreview(mentor.image_url) +
             '<div class="card-section">\n' +
             `<h4 class="text-center">${mentor.first_name} ${mentor.last_name}</h4>\n` +
-            '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dui sem, fermentum vitae, sagittis id,malesuada in, quam.</p>\n' +
-            this.mentorData.createTags(mentor) +
+            this.createDescriptionPreview(mentor.description) +
+            mentorDetail_1.createTags(mentor) +
             '</div>\n' +
             '</div>\n' +
             '</a>\n';
     }
-}
-exports.default = MentorCard;
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// type Tag = "keywords" | "places";
-class MentorData {
-    constructor(jsonData) {
-        // this.tagList = new Array();
-        this.jsonData = jsonData;
-        // jsonData.forEach(mentor => {
-        //     this.tagList = [mentor.role, mentor.country];
-        //     console.log()
-        //     // this.updateList(this.tagList, );
-        // });
+    createPicPreview(image_url) {
+        return `<img src="${image_url}" class="img-circle float-center">\n`;
     }
-    updateList(list, elements) {
-        elements.forEach(element => {
-            if (list.indexOf(element) === -1) {
-                list.push(element);
-            }
-        });
-    }
-    getData() {
-        return this.jsonData;
-    }
-    getMentorById(id) {
-        let idx = 0;
-        while (idx < this.jsonData.length && this.jsonData[idx].id !== id) {
-            idx++;
-        }
-        return this.jsonData[idx];
-    }
-    getMentorName(mentor) {
-        return `${mentor.first_name} ${mentor.last_name}`;
-    }
-    createTags(mentor) {
-        let tagString = "";
-        [mentor.role, mentor.company].forEach((tag, i) => {
-            tagString = tagString + `<span class="label ${i > 0 ? "label-not-selected" : "label-selected"}">${tag}</span>\n`;
-        });
-        return "<div>" + tagString + "</div>\n";
-    }
-    getCurrentRole(mentor) {
-        let htmlString = "";
-        if (mentor.role) {
-            htmlString += `<h7 class="subheader"><small>Current role</small></h7>\n` +
-                `<div class="large-offset-2 medium-offset-2">\n` +
-                `<ul class="no-bullet">\n`;
-            htmlString += `<li>${mentor.role}</li>\n`;
-            if (mentor.working_industry)
-                htmlString += `<li>${mentor.working_industry}</li>\n`;
-            if (mentor.company) {
-                if (mentor.country)
-                    htmlString += `<li>${mentor.company}, ${mentor.country}</li>\n`;
-                else
-                    `<li>${mentor.company}</li>\n`;
-            }
-            htmlString +=
-                `</ul>\n` +
-                    `</div>`;
-        }
-        return htmlString;
-    }
-    getPreviousRole(mentor) {
-        let htmlString = "";
-        if (mentor.previous_role) {
-            htmlString += `<h7 class="subheader"><small>Previous role</small></h7>\n` +
-                `<div class="large-offset-2 medium-offset-2">\n` +
-                `<ul class="no-bullet">\n`;
-            htmlString += `<li>${mentor.previous_role}`;
-            if (mentor.previous_company)
-                htmlString += `, ${mentor.previous_company}`;
-            if (mentor.previous_country)
-                htmlString += `, ${mentor.previous_country}`;
-            htmlString += `</li>\n`;
-            htmlString +=
-                `</ul>\n` +
-                    `</div>`;
-        }
-        return htmlString;
-    }
-    getHighSchool(mentor) {
-        let htmlString = "";
-        if (mentor.high_school_name || mentor.high_school_abroad) {
-            htmlString +=
-                `<h7 class="subheader"><small>High school education</small></h7>\n` +
-                    `<div class="large-offset-1 medium-offset-1">\n` +
-                    `<ul class="no-bullet">\n`;
-            if (mentor.high_school_name) {
-                htmlString += `<li>${mentor.high_school_name}`;
-                if (mentor.maturita_year)
-                    htmlString += `<small>, graduated ${mentor.maturita_year}</small>`;
-                htmlString += `</li>\n`;
-            }
-            if (mentor.high_school_abroad) {
-                htmlString += `<li>${mentor.high_school_abroad}`;
-                if (mentor.high_school_abroad_country)
-                    htmlString += `, ${mentor.high_school_abroad_country}`;
-                htmlString += `</li>\n`;
-            }
-            htmlString +=
-                `</ul>\n` +
-                    `</div>`;
-        }
-        return htmlString;
-    }
-    getUniversity(mentor) {
-        let htmlString = "";
-        if (mentor.university_1_name || mentor.university_2_name || mentor.university_3_name) {
-            htmlString += `<h7 class="subheader"><small>University education</small></h7>\n` +
-                `<div class="large-offset-1 medium-offset-1">\n` +
-                `<ul class="no-bullet">\n`;
-            if (mentor.university_1_name) {
-                htmlString += `<li>${mentor.university_1_name}`;
-                if (mentor.university_1_program)
-                    htmlString += `, ${mentor.university_1_program}`;
-                if (mentor.university_1_country)
-                    htmlString += `, ${mentor.university_1_country}`;
-                if (mentor.university_1_grad_year)
-                    htmlString += `<small>, graduated ${mentor.university_1_grad_year}</small>`;
-                htmlString += `</li>\n`;
-            }
-            if (mentor.university_2_name) {
-                htmlString += `<li>${mentor.university_2_name}`;
-                if (mentor.university_2_program)
-                    htmlString += `, ${mentor.university_2_program}`;
-                if (mentor.university_2_country)
-                    htmlString += `, ${mentor.university_2_country}`;
-                if (mentor.university_2_grad_year)
-                    htmlString += `<small>, graduated ${mentor.university_2_grad_year}</small>`;
-                htmlString += `</li>\n`;
-            }
-            if (mentor.university_3_name) {
-                htmlString += `<li>${mentor.university_3_name}`;
-                if (mentor.university_3_program)
-                    htmlString += `, ${mentor.university_3_program}`;
-                if (mentor.university_3_country)
-                    htmlString += `, ${mentor.university_3_country}`;
-                if (mentor.university_3_grad_year)
-                    htmlString += `<small>, graduated ${mentor.university_3_grad_year}</small>`;
-                htmlString += `</li>\n`;
-            }
-            htmlString +=
-                `</ul>\n` +
-                    `</div>`;
-        }
-        return htmlString;
-    }
-    getDescription(mentor) {
-        let htmlString = "";
-        if (mentor.description) {
-            htmlString =
-                `<h7 class="subheader"><small>Description</small></h7>\n` +
-                    `<div class="large-offset-1 medium-offset-1">\n`;
-            htmlString += `<p>${mentor.description}</p>`;
-            htmlString +=
-                `</div>`;
-        }
-        return htmlString;
+    createDescriptionPreview(description) {
+        const descPrev = description.substr(0, 120);
+        return `<p>${descPrev} ...</p>\n`;
     }
 }
-exports.default = MentorData;
+exports.default = MentorCards;
+function loadDataFromDB(dataUrl) {
+    return new Promise(resolve => {
+        axios_1.default({
+            method: "get",
+            url: dataUrl,
+            withCredentials: true
+        }).then(data => {
+            resolve(data.data);
+        });
+    });
+}
+exports.loadDataFromDB = loadDataFromDB;
+function checkUrl(url) {
+    if (url.charAt(url.length - 1) == "/") {
+        url = url.substr(0, url.length - 1);
+    }
+    return url;
+}
+exports.checkUrl = checkUrl;
 
 
 /***/ })
