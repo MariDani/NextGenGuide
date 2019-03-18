@@ -31,8 +31,7 @@
     "@types/express": "^4.16.0",
     "@types/node": "^10.12.15"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "build": "webpack --progress --colors --display-error-details",
     "postinstall": "webpack --progress --colors --display-error-details",
