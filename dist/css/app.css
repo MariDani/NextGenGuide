@@ -8,15 +8,18 @@ body {
 }
 
 .top-bar {
-  background-color: #e4f1f2;
+  /* background-color: #e4f1f2; */
+  margin-bottom: 2em;
+  height: 5em;
 }
+
 .top-bar a {
   opacity: 1;
   color: #636363;
 }
 
-.top-bar ul {
-  background-color: #e4f1f2;
+.top-bar, .top-bar ul {
+  background-color: white;
 }
 
 #top-bar-logo img {
@@ -56,6 +59,11 @@ a:hover {
 .img-circle {
   border-radius: 50%;
   max-width: 50%;
+}
+
+.main-logo {
+  height: 10em;
+  width: auto;
 }
 
 #mentors > div{
