@@ -1,5 +1,5 @@
 body {
-  color: #262525; 
+  color: #262525;
   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
 }
 
@@ -8,15 +8,27 @@ body {
 }
 
 .top-bar {
-  background-color: #e4f1f2;
+  margin-bottom: 2em;
+  height: 5em;
 }
+
+.vertical-div-parent {
+  position: relative;
+}
+
+.vertical-div-child {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
 .top-bar a {
   opacity: 1;
   color: #636363;
 }
 
-.top-bar ul {
-  background-color: #e4f1f2;
+.top-bar, .top-bar ul {
+  background-color: white;
 }
 
 #top-bar-logo img {
@@ -28,11 +40,12 @@ body {
   padding-bottom: 0;
 }
 
-#top-bar-logo li{
+#top-bar-logo li {
   display: flex;
-  justify-content:center;
-  align-content:center;
-  flex-direction:column; /* column | row */
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  /* column | row */
 }
 
 a:hover {
@@ -42,9 +55,17 @@ a:hover {
   text-decoration: none;
 }
 
-.mentor-card, .mentor-detail-card {
-  border: none;
-  background-color: transparent;
+#dropdown-parent {
+  color: #636363;
+  border-color: #636363 transparent transparent;
+}
+
+#dropdown-parent::after {
+  border-color: #636363 transparent transparent;
+}
+
+#dropdown-parent ul.is-dropdown-submenu {
+  border-radius: 0.5rem;
 }
 
 .mentor-card:hover {
@@ -58,22 +79,26 @@ a:hover {
   max-width: 50%;
 }
 
-#mentors > div{
+.main-logo {
+  height: 10em;
+  width: auto;
+}
+
+#mentors>div {
   padding: 15px;
 }
 
 .label-not-selected {
-  background: #707cbf ;
+  background: #707cbf;
 }
 
 .label-selected {
-  background:rgba(0,116,217,0.8);
+  background: rgba(0, 116, 217, 0.8);
 }
 
 .label {
   color: whitesmoke;
   border-radius: 0.5em;
-
 }
 
 #mentor-search {
@@ -81,22 +106,93 @@ a:hover {
 }
 
 .responsive {
-    width: 100%;
-    height: auto;
-  }
+  width: 100%;
+  height: auto;
+}
+
+/* Mentor details */
+
+.mentor-detail-section {
+  margin-bottom: 1.5em;
+}
+
+#mentor-name {
+  margin: 0.5em 0em 1.5em 0em
+}
+
+.contact-me {
+  background-color: #7eb4da;
+  color: whitesmoke;
+  border-radius: 0.5em;
+}
 
 
-  /* Mentor details */
- .mentor-detail-section {
-    margin-bottom: 1.5em;
-  }
+/* Index mission-vision */
 
-  #mentor-name {
-    margin: 0.5em 0em 1.5em 0em
-  }
+#mission-vision {
+  margin-top: 4rem;
+}
 
-  .contact-me {
-    background-color: #7eb4da;
-    color: whitesmoke;
-    border-radius: 0.5em;
-  }
+#mission-vision div.callout-button {
+  color: white;
+  background-color: #707cbfA5;
+  border-width: 0rem;
+  font-size: 95%;
+  padding: 0.5rem;
+  margin: 1rem 0 1rem 0;
+}
+
+#mission-vision div h4 {
+  margin-bottom: 1rem;
+}
+
+/* Callout main buttons */
+
+.callout-button {
+  border-radius: 1em;
+  border-width: 0.1em;
+  text-align: center;
+}
+
+.color-b-inverted {
+  background-color: #7eb4da;
+  border-width: 0em;
+  font-size: 90%;
+  margin: 0;
+  padding: 0.7rem;
+}
+
+.color-b-inverted a {
+  color: white;
+}
+
+.color-a {
+  color: #707cbf;
+  border-color: #707cbf;
+}
+
+.color-b {
+  color: #7eb4da;
+  border-color: #7eb4da;
+}
+
+.callout-button.hover:hover {
+  opacity: 0.75;
+  transition: opacity .15s ease-out;
+  -webkit-transition: opacity .15s ease-out;
+  text-decoration: none;
+}
+
+/* footer */
+.footer-right {
+  text-align: right;
+  font-size: 90%;
+  margin-top: 1rem;
+  padding: 0 1rem 0 1rem;
+  position: absolute;
+  width: 100%;
+}
+
+.footer-right p {
+    margin: 0.5rem;
+}
