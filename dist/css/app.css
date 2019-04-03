@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   color: #262525;
   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
@@ -131,6 +136,7 @@ a:hover {
 
 #mission-vision {
   margin-top: 4rem;
+  margin-bottom: 2rem
 }
 
 #mission-vision div.callout-button {
@@ -190,9 +196,12 @@ a:hover {
   margin-top: 1rem;
   padding: 0 1rem 0 1rem;
   position: absolute;
+  bottom: 0;
   width: 100%;
 }
 
-.footer-right p {
-    margin: 0.5rem;
+a.tiny {
+  font-size: 85%;
+  text-decoration: none;
+  color: #262525CC;
 }
