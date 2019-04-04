@@ -12,40 +12,58 @@
 
 <body id="mentordetails">
   <!-- NAV BAR -->
-  <div class="top-bar">
+  <div class="top-bar sticky">
     <div class="top-bar-left">
-      <ul class="dropdown menu" data-dropdown-menu>
-        <a href="index.html">
-          <li class="menu-text">Next Gen Guide</li>
-        </a>
+      <ul class="menu" id="top-bar-logo">
+        <!-- <li><a href="marizuz.html">
+                <img src="img/nxtgn-logo-notext.svg" alt="Next Gen Guide">
+              </a></li> -->
+        <li><a href="marizuz.html">Next Gen Guide</a></li>
       </ul>
     </div>
     <div class="top-bar-right">
-      <ul class="menu">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Our Network</a></li>
-        <li><a href="#">Our Partners</a></li>
-        <li><a href="#">Study Abroad</a></li>
-        <li><a href="#">Alumni Stories</a></li>
-        <li><a href="#">Contact us</a></li>
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li><a href="marizuz.html#mission-vision">Mission and Vision</a></li>
+        <li><a href="mentordb.html"><strong>Mentors</strong></a></li>
+        <li>
+          <a id="dropdown-parent" href="#">Join Us</a>
+          <ul class="menu vertical">
+            <li><a href="newstudent.html">Students</a></li>
+            <li><a href="newmentor.html">Mentors</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About Us</a></li>
       </ul>
     </div>
   </div>
 
-  <br>
-
   <div class="grid-container">
-    <div class="grid-x grid-padding-x">
 
+    <div class="grid-x grid-padding-x">
       <!-- Name -->
-      <div class="cell large-11 medium-11 large-offset-1">
+      <div class="cell medium-10 medium-offset-1">
         <div id="mentor-name"></div>
       </div>
 
-      <div class="cell large-5 medium-5 large-offset-1">
-        <div id="mentor-tags"></div>
-
+      <div class="cell medium-4 medium-offset-1">
+        <img class="float-center img-circle" id="mentor-pic-detail">
         <br>
+        <div id="mentor-tags"></div>
+      </div>
+
+      <div class="cell medium-6">
+        <p class="mentor-detail-section" id="description"></p>
+      </div>
+      <div class="cell medium-10 medium-offset-1">
+        <a class="button contact-me" href="mailto:test@example.com?subject=Testing out mailto!">Contact me</a>
+      </div>
+    </div>
+
+    <!-- <div class="grid-x grid-padding-x">
+
+
+      <div class="cell large-5 medium-5 large-offset-1">
+
         <ul class="no-bullet">
           <li class="mentor-detail-section" id="current-role"></li>
           <li class="mentor-detail-section" id="previous-role"></li>
@@ -62,9 +80,8 @@
           <li class="mentor-detail-section" id="high-school"></li>
           <li class="mentor-detail-section" id="description"></li>
         </ul>
-        <a class="button contact-me" href="mailto:test@example.com?subject=Testing out mailto!">Contact me</a>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <script src="js/vendor/jquery.js"></script>

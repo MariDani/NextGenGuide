@@ -73,6 +73,11 @@ a:hover {
   border-radius: 0.5rem;
 }
 
+.mentor-card {
+  border-width: 0;
+  margin: 1rem 0 1rem 0;
+}
+
 .mentor-card:hover {
   transition: opacity .15s ease-out;
   -webkit-transition: opacity .15s ease-out;
@@ -93,11 +98,15 @@ a:hover {
   padding: 15px;
 }
 
-.label-not-selected {
+.label-color-a {
   background: #707cbf;
 }
 
-.label-selected {
+.label-color-b {
+  background: #7eb4da;
+}
+
+.label-color-c {
   background: rgba(0, 116, 217, 0.8);
 }
 

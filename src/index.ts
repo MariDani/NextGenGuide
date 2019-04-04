@@ -8,6 +8,6 @@ if (document.getElementById("mentordetails")) {
     new MentorDetail(dbUrl, parseFloat(regex.exec(window.location.search)[1]));
 }
 
-if (document.getElementById("index")) {
+if (document.getElementById("mentordb")) {
     new MentorCards(dbUrl);
 }

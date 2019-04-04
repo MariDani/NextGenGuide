@@ -1,4 +1,4 @@
-import {loadDataFromDB, checkUrl, MentorDataProperties} from "./mentorCards";
+import { loadDataFromDB, checkUrl, MentorDataProperties } from "./mentorCards";
 
 export default class MentorDetail {
     mentor: MentorDataProperties;
@@ -7,7 +7,7 @@ export default class MentorDetail {
         const mentorDataPromise = loadDataFromDB(`${checkUrl(dbUrl)}/mentors/${id}`);
         mentorDataPromise.then(data => {
             const mentors = <any>data;
-            if (mentors.length > 0){
+            if (mentors.length > 0) {
                 this.mentor = mentors[0];
                 this.createMentorProfile();
             }
@@ -19,23 +19,23 @@ export default class MentorDetail {
         this.showMentorName();
         this.showTags();
         this.showProfilePicture();
-        this.showCurrentRole();
-        this.showPreviousRole();
-        this.showUniversity();
-        this.showHighSchool();
         this.showDescription();
+        // this.showCurrentRole();
+        // this.showPreviousRole();
+        // this.showUniversity();
+        // this.showHighSchool();
     }
 
     private showMentorName() {
-        document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`     
+        document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`
     }
 
-    private showTags(){
+    private showTags() {
         document.getElementById("mentor-tags").innerHTML = createTags(this.mentor)
     }
 
-    private showProfilePicture(){
-        (<HTMLImageElement>document.getElementById("mentor-pic-detail")).src = this.mentor.image_url;   
+    private showProfilePicture() {
+        (<HTMLImageElement>document.getElementById("mentor-pic-detail")).src = this.mentor.image_url;
     }
 
     private showCurrentRole() {
@@ -143,7 +143,6 @@ export default class MentorDetail {
         let descHtml = "";
         if (this.mentor.description) {
             descHtml =
-                `<h7 class="subheader"><small>Description</small></h7>\n` +
                 `<div class="large-offset-1 medium-offset-1">\n`
 
             descHtml += `<p>${this.mentor.description}</p>`;
@@ -156,10 +155,31 @@ export default class MentorDetail {
 }
 
 export function createTags(mentor: MentorDataProperties) {
-    let tagHtml = "";
-    [mentor.working_industry, mentor.country].forEach((tag, i) => {
-        tagHtml = tagHtml + `<span class="label ${i > 0 ? "label-not-selected" : "label-selected"}">${tag}</span>\n`;
+    let tagHtml = "<div>\n";
+    let universityPrograms: Array<String> = [];
+    let countries: Array<String> = [];
+    if (mentor.country) countries.push(mentor.country);
+    if (mentor.previous_country && countries.indexOf(mentor.previous_country) < 0) countries.push(mentor.previous_country)
+    for (let idx = 1; idx <= 3; idx++) {
+        if (mentor[`university_${idx}_program`] && universityPrograms.indexOf(<String>mentor[`university_${idx}_program`]) < 0) {
+            universityPrograms.push(<String>mentor[`university_${idx}_program`]);
+        }
+        if (mentor[`university_${idx}_country`] && countries.indexOf(<String>mentor[`university_${idx}_country`]) < 0) {
+            countries.push(<String>mentor[`university_${idx}_country`]);
+        }
+    }
+    universityPrograms.forEach(program => {
+        tagHtml = tagHtml + `<span class="label label-color-a">${<String>program}</span>\n`
     });
+    tagHtml = tagHtml + "</div>\n";
+    if (mentor.working_industry) {
+        tagHtml = tagHtml + `<div>\n <span class="label label-color-b">${<String>mentor.working_industry}</span>\n </div>\n`;
+    }
+    tagHtml = tagHtml + "<div>\n";
+    countries.forEach(country => {
+        tagHtml = tagHtml + `<span class="label label-color-c">${<String>country}</span>\n`
+    });
+    tagHtml = tagHtml + "</div>\n";
 
-    return "<div>" + tagHtml + "</div>\n";
+    return tagHtml;
 }

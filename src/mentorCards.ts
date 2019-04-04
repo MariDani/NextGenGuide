@@ -49,9 +49,12 @@ export default class MentorCards {
     private createMentorCards() {
         const mentorsDiv = document.getElementById("mentors");
 
-        this.mentors.forEach((mentor) => {
+        this.mentors.forEach((mentor, index) => {
             let cardDiv = document.createElement("div");
-            cardDiv.className = "cell large-3 medium-4";
+            if (index % 2 === 0){
+                cardDiv.className = "cell medium-5 medium-offset-1";
+            }
+            else cardDiv.className = "cell medium-5";
             cardDiv.id = `mentor-${mentor.id}`;
             cardDiv.innerHTML = this.createInnerHtml(mentor);
             mentorsDiv.appendChild(cardDiv);
@@ -64,7 +67,6 @@ export default class MentorCards {
             this.createPicPreview(mentor.image_url) +
             '<div class="card-section">\n' +
             `<h4 class="text-center">${mentor.first_name} ${mentor.last_name}</h4>\n` +
-            this.createDescriptionPreview(mentor.description) +
             createTags(mentor) +
             '</div>\n' +
             '</div>\n' +
@@ -73,11 +75,6 @@ export default class MentorCards {
 
     private createPicPreview(image_url: string) {
         return `<img src="${image_url}" class="img-circle float-center">\n`
-    }
-
-    private createDescriptionPreview(description: string) {
-        const descPrev = description.substr(0, 120);
-        return `<p>${descPrev} ...</p>\n`
     }
 }
 

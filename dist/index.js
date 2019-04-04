@@ -496,9 +496,13 @@ class MentorCards {
     }
     createMentorCards() {
         const mentorsDiv = document.getElementById("mentors");
-        this.mentors.forEach((mentor) => {
+        this.mentors.forEach((mentor, index) => {
             let cardDiv = document.createElement("div");
-            cardDiv.className = "cell large-3 medium-4";
+            if (index % 2 === 0) {
+                cardDiv.className = "cell medium-5 medium-offset-1";
+            }
+            else
+                cardDiv.className = "cell medium-5";
             cardDiv.id = `mentor-${mentor.id}`;
             cardDiv.innerHTML = this.createInnerHtml(mentor);
             mentorsDiv.appendChild(cardDiv);
@@ -510,7 +514,6 @@ class MentorCards {
             this.createPicPreview(mentor.image_url) +
             '<div class="card-section">\n' +
             `<h4 class="text-center">${mentor.first_name} ${mentor.last_name}</h4>\n` +
-            this.createDescriptionPreview(mentor.description) +
             mentorDetail_1.createTags(mentor) +
             '</div>\n' +
             '</div>\n' +
@@ -518,10 +521,6 @@ class MentorCards {
     }
     createPicPreview(image_url) {
         return `<img src="${image_url}" class="img-circle float-center">\n`;
-    }
-    createDescriptionPreview(description) {
-        const descPrev = description.substr(0, 120);
-        return `<p>${descPrev} ...</p>\n`;
     }
 }
 exports.default = MentorCards;
@@ -1029,11 +1028,11 @@ class MentorDetail {
         this.showMentorName();
         this.showTags();
         this.showProfilePicture();
-        this.showCurrentRole();
-        this.showPreviousRole();
-        this.showUniversity();
-        this.showHighSchool();
         this.showDescription();
+        // this.showCurrentRole();
+        // this.showPreviousRole();
+        // this.showUniversity();
+        // this.showHighSchool();
     }
     showMentorName() {
         document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`;
@@ -1143,8 +1142,7 @@ class MentorDetail {
         let descHtml = "";
         if (this.mentor.description) {
             descHtml =
-                `<h7 class="subheader"><small>Description</small></h7>\n` +
-                    `<div class="large-offset-1 medium-offset-1">\n`;
+                `<div class="large-offset-1 medium-offset-1">\n`;
             descHtml += `<p>${this.mentor.description}</p>`;
             descHtml +=
                 `</div>`;
@@ -1154,11 +1152,34 @@ class MentorDetail {
 }
 exports.default = MentorDetail;
 function createTags(mentor) {
-    let tagHtml = "";
-    [mentor.working_industry, mentor.country].forEach((tag, i) => {
-        tagHtml = tagHtml + `<span class="label ${i > 0 ? "label-not-selected" : "label-selected"}">${tag}</span>\n`;
+    let tagHtml = "<div>\n";
+    let universityPrograms = [];
+    let countries = [];
+    if (mentor.country)
+        countries.push(mentor.country);
+    if (mentor.previous_country && countries.indexOf(mentor.previous_country) < 0)
+        countries.push(mentor.previous_country);
+    for (let idx = 1; idx <= 3; idx++) {
+        if (mentor[`university_${idx}_program`] && universityPrograms.indexOf(mentor[`university_${idx}_program`]) < 0) {
+            universityPrograms.push(mentor[`university_${idx}_program`]);
+        }
+        if (mentor[`university_${idx}_country`] && countries.indexOf(mentor[`university_${idx}_country`]) < 0) {
+            countries.push(mentor[`university_${idx}_country`]);
+        }
+    }
+    universityPrograms.forEach(program => {
+        tagHtml = tagHtml + `<span class="label label-color-a">${program}</span>\n`;
     });
-    return "<div>" + tagHtml + "</div>\n";
+    tagHtml = tagHtml + "</div>\n";
+    if (mentor.working_industry) {
+        tagHtml = tagHtml + `<div>\n <span class="label label-color-b">${mentor.working_industry}</span>\n </div>\n`;
+    }
+    tagHtml = tagHtml + "<div>\n";
+    countries.forEach(country => {
+        tagHtml = tagHtml + `<span class="label label-color-c">${country}</span>\n`;
+    });
+    tagHtml = tagHtml + "</div>\n";
+    return tagHtml;
 }
 exports.createTags = createTags;
 
@@ -1177,7 +1198,7 @@ if (document.getElementById("mentordetails")) {
     const regex = /[?](\w+)/g;
     new mentorDetail_1.default(dbUrl, parseFloat(regex.exec(window.location.search)[1]));
 }
-if (document.getElementById("index")) {
+if (document.getElementById("mentordb")) {
     new mentorCards_1.default(dbUrl);
 }
 
