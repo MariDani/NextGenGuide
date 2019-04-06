@@ -20,29 +20,34 @@ export default class MentorDetail {
         this.showTags();
         this.showProfilePicture();
         this.showDescription();
+        this.moreAboutMentor();
         this.showEducationTable();
         this.showCareerTable();
     }
 
     private showMentorName() {
-        document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`
+        document.getElementById("mentor-name").innerHTML = `<h4>${this.mentor.first_name} ${this.mentor.last_name}</h4>`;
     }
 
     private showTags() {
-        document.getElementById("mentor-tags").innerHTML = createTags(this.mentor)
+        document.getElementById("mentor-tags").innerHTML = createTags(this.mentor);
     }
 
     private showProfilePicture() {
         (<HTMLImageElement>document.getElementById("mentor-pic-detail")).src = this.mentor.image_url;
     }
 
+    private moreAboutMentor(){
+        document.getElementById("more-about-mentor").innerHTML = `<h5>More about ${this.mentor.first_name}:</h5>`;
+    }
+
     private showEducationTable() {
         const tableHeader = `<thead>\n
         <tr>\n
-          <th>University/School</th>\n
-          <th>Program</th>\n
-          <th>Country</th>\n
-          <th>Graduation</th>\n
+          <th><div class="callout callout-button color-b-inverted">University/School</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Program</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Country</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Graduation</div></th>\n
         </tr>\n
         </thead>\n`;
 
@@ -85,10 +90,10 @@ export default class MentorDetail {
     private showCareerTable() {
         const tableHeader = `<thead>\n
         <tr>\n
-          <th>Company</th>\n
-          <th>Role</th>\n
-          <th>Industry</th>\n
-          <th>Country</th>\n
+          <th><div class="callout callout-button color-b-inverted">Company</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Role</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Industry</div></th>\n
+          <th><div class="callout callout-button color-b-inverted">Country</div></th>\n
         </tr>\n
         </thead>\n`;
 

@@ -214,3 +214,35 @@ a.tiny {
   text-decoration: none;
   color: #262525CC;
 }
+
+/* mentor detail */
+#more-about-mentor {
+  margin: 2rem 0 1rem 0;
+}
+
+table {
+  margin: 1rem 0 1rem 0;
+}
+
+thead {
+  border: none;
+  background: inherit;
+}
+
+tbody{
+  border: none;
+}
+
+tbody tr{
+  border-bottom: 0 !important;
+}
+
+th div.callout-button{
+  color: white
+}
+
+.table-type  {
+ height: calc(100% - 3rem);
+ width: 100%;
+ color: white;
+}
