@@ -20,10 +20,8 @@ export default class MentorDetail {
         this.showTags();
         this.showProfilePicture();
         this.showDescription();
-        // this.showCurrentRole();
-        // this.showPreviousRole();
-        // this.showUniversity();
-        // this.showHighSchool();
+        this.showEducationTable();
+        this.showCareerTable();
     }
 
     private showMentorName() {
@@ -38,105 +36,87 @@ export default class MentorDetail {
         (<HTMLImageElement>document.getElementById("mentor-pic-detail")).src = this.mentor.image_url;
     }
 
-    private showCurrentRole() {
-        let currRoleHtml = "";
-        if (this.mentor.role) {
-            currRoleHtml += `<h7 class="subheader"><small>Current role</small></h7>\n` +
-                `<div class="large-offset-2 medium-offset-2">\n` +
-                `<ul class="no-bullet">\n`;
+    private showEducationTable() {
+        const tableHeader = `<thead>\n
+        <tr>\n
+          <th>University/School</th>\n
+          <th>Program</th>\n
+          <th>Country</th>\n
+          <th>Graduation</th>\n
+        </tr>\n
+        </thead>\n`;
 
-            currRoleHtml += `<li>${this.mentor.role}</li>\n`;
-            if (this.mentor.working_industry) currRoleHtml += `<li>${this.mentor.working_industry}</li>\n`;
-            if (this.mentor.company) {
-                if (this.mentor.country) currRoleHtml += `<li>${this.mentor.company}, ${this.mentor.country}</li>\n`;
-                else `<li>${this.mentor.company}</li>\n`;
-            }
+        let tableBody = "<tbody>\n";
 
-            currRoleHtml +=
-                `</ul>\n` +
-                `</div>`;
+        // czech high school
+        if (this.mentor.high_school_name) {
+            tableBody += `<tr>\n <td>${this.mentor.high_school_name}</td>\n`;
+            tableBody += `<td></td>\n <td></td>\n`;
+            tableBody += `<td>${this.mentor.maturita_year ? this.mentor.maturita_year : ""}</td>\n`;
+            tableBody += "</tr>\n";
         }
-        document.getElementById("current-role").innerHTML = currRoleHtml;
+
+        // international high school
+        if (this.mentor.high_school_abroad) {
+            tableBody += `<tr>\n <td>${this.mentor.high_school_abroad}</td>\n`;
+            tableBody += `<td></td>\n <td>${this.mentor.high_school_abroad_country ? this.mentor.high_school_abroad_country : ""}</td>\n`;
+            tableBody += `<td></td>\n`;
+            tableBody += "</tr>\n";
+        }
+
+        // university
+        for (let idx = 1; idx <= 3; idx++) {
+            if (this.mentor[`university_${idx}_name`]) {
+                tableBody += `<tr>\n <td>${this.mentor[`university_${idx}_name`]}</td>\n`;
+                tableBody += `<td>${this.mentor[`university_${idx}_program`] ? this.mentor[`university_${idx}_program`] : ""}</td>\n`
+                tableBody += `<td>${this.mentor[`university_${idx}_country`] ? this.mentor[`university_${idx}_country`] : ""}</td>\n`;
+                tableBody += `<td>${this.mentor[`university_${idx}_grad_year`] ? this.mentor[`university_${idx}_grad_year`] : ""}</td>\n`;
+                tableBody += "</tr>\n";
+            }
+        }
+
+        tableBody += "</tbody>\n";
+
+        if (tableBody != "<tbody>\n") {
+            document.getElementById("education-table").innerHTML = tableHeader + tableBody;
+        }
     }
 
-    private showPreviousRole() {
-        let prevRoleHtml = "";
-        if (this.mentor.previous_role) {
-            prevRoleHtml += `<h7 class="subheader"><small>Previous role</small></h7>\n` +
-                `<div class="large-offset-2 medium-offset-2">\n` +
-                `<ul class="no-bullet">\n`;
+    private showCareerTable() {
+        const tableHeader = `<thead>\n
+        <tr>\n
+          <th>Company</th>\n
+          <th>Role</th>\n
+          <th>Industry</th>\n
+          <th>Country</th>\n
+        </tr>\n
+        </thead>\n`;
 
-            prevRoleHtml += `<li>${this.mentor.previous_role}`;
-            if (this.mentor.previous_company) prevRoleHtml += `, ${this.mentor.previous_company}`;
-            if (this.mentor.previous_country) prevRoleHtml += `, ${this.mentor.previous_country}`;
-            prevRoleHtml += `</li>\n`;
+        let tableBody = "<tbody>\n";
 
-            prevRoleHtml +=
-                `</ul>\n` +
-                `</div>`;
+        // current role
+        if (this.mentor.company) {
+            tableBody += `<tr>\n <td>${this.mentor.company}</td>\n`;
+            tableBody += `<td>${this.mentor.role}</td>\n`;
+            tableBody += `<td>${this.mentor.working_industry? this.mentor.working_industry : ""}</td>\n`;
+            tableBody += `<td>${this.mentor.country ? this.mentor.country : ""}</td>\n`;
+            tableBody += "</tr>\n";
         }
 
-        document.getElementById("previous-role").innerHTML = prevRoleHtml;
-    }
-
-    private showHighSchool() {
-        let highSchHtml = "";
-        if (this.mentor.high_school_name || this.mentor.high_school_abroad) {
-            highSchHtml +=
-                `<h7 class="subheader"><small>High school education</small></h7>\n` +
-                `<div class="large-offset-1 medium-offset-1">\n` +
-                `<ul class="no-bullet">\n`;
-
-            if (this.mentor.high_school_name) {
-                highSchHtml += `<li>${this.mentor.high_school_name}`;
-                if (this.mentor.maturita_year) highSchHtml += `<small>, graduated ${this.mentor.maturita_year}</small>`;
-                highSchHtml += `</li>\n`;
-            }
-            if (this.mentor.high_school_abroad) {
-                highSchHtml += `<li>${this.mentor.high_school_abroad}`;
-                if (this.mentor.high_school_abroad_country) highSchHtml += `, ${this.mentor.high_school_abroad_country}`;
-                highSchHtml += `</li>\n`;
-            }
-
-            highSchHtml +=
-                `</ul>\n` +
-                `</div>`;
+        // previous
+        if (this.mentor.previous_company) {
+            tableBody += `<tr>\n <td>${this.mentor.previous_company}</td>\n`;
+            tableBody += `<td>${this.mentor.previous_role}</td>\n`;
+            // tableBody += `<td>${this.mentor.working_industry? this.mentor.working_industry : ""}</td>\n`;
+            tableBody += "<td></td>"
+            tableBody += `<td>${this.mentor.previous_country ? this.mentor.previous_country : ""}</td>\n`;
+            tableBody += "</tr>\n";
         }
-        document.getElementById("high-school").innerHTML = highSchHtml;
-    }
 
-    private showUniversity() {
-        let uniHtml = "";
-        if (this.mentor.university_1_name || this.mentor.university_2_name || this.mentor.university_3_name) {
-
-            uniHtml += `<h7 class="subheader"><small>University education</small></h7>\n` +
-                `<div class="large-offset-1 medium-offset-1">\n` +
-                `<ul class="no-bullet">\n`;
-
-            for (let idx = 1; idx <= 3; idx++) {
-                if (<any>this.mentor[`university_${idx}_name`]) {
-                    const _name = this.mentor[`university_${idx}_name`];
-                    uniHtml += `<li>${_name}`;
-                }
-                if (this.mentor[`university_${idx}_program`]) {
-                    const _program = this.mentor[`university_${idx}_program`]
-                    uniHtml += `, ${_program}`;
-                }
-                if (this.mentor[`university_${idx}_country`]) {
-                    const _country = this.mentor[`university_${idx}_country`]
-                    uniHtml += `, ${_country}`;
-                }
-                if (this.mentor[`university_${idx}_grad_year`]) {
-                    const _grad_year = this.mentor[`university_${idx}_grad_year`]
-                    uniHtml += `<small>, ${_grad_year}</small>`;
-                }
-                uniHtml += `</li>\n`;
-            }
-            uniHtml +=
-                `</ul>\n` +
-                `</div>`;
+        tableBody += "</tbody>\n";
+        if (tableBody != "<tbody>\n") {
+            document.getElementById("career-table").innerHTML = tableHeader + tableBody;
         }
-        document.getElementById("university").innerHTML = uniHtml;
     }
 
     private showDescription() {
