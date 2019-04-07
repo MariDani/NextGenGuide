@@ -103,7 +103,7 @@ a:hover {
 }
 
 .label-color-b {
-  background: #7eb4da;
+  background: #00C9B7;
 }
 
 .label-color-c {
@@ -134,8 +134,8 @@ a:hover {
   margin: 0.5em 0em 1.5em 0em
 }
 
-.contact-me {
-  background-color: #7eb4da;
+#contact-me a {
+  background-color: #00C9B7;
   color: whitesmoke;
   border-radius: 0.5em;
 }
@@ -170,7 +170,7 @@ a:hover {
 }
 
 .color-b-inverted {
-  background-color: #7eb4da;
+  background-color: #00C9B7;
   border-width: 0em;
   font-size: 90%;
   margin: 0;
@@ -187,8 +187,8 @@ a:hover {
 }
 
 .color-b {
-  color: #7eb4da;
-  border-color: #7eb4da;
+  color: #00C9B7;
+  border-color: #00C9B7;
 }
 
 .callout-button.hover:hover {
