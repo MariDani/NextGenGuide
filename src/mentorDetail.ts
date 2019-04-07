@@ -21,6 +21,7 @@ export default class MentorDetail {
         this.showProfilePicture();
         this.showDescription();
         this.moreAboutMentor();
+        this.showContactButton();
         this.showEducationTable();
         this.showCareerTable();
     }
@@ -39,6 +40,11 @@ export default class MentorDetail {
 
     private moreAboutMentor(){
         document.getElementById("more-about-mentor").innerHTML = `<h5>More about ${this.mentor.first_name}:</h5>`;
+    }
+
+    private showContactButton(){
+        let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name}">Contact me</a>`;
+        document.getElementById("contact-me").innerHTML = contactHtml;
     }
 
     private showEducationTable() {
