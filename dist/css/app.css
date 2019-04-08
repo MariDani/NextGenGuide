@@ -9,11 +9,7 @@ body {
 }
 
 .full-height {
-  height: 92vh;
-}
-
-.div-top-margin {
-  padding-top: 8vh;
+  height: calc(100vh - 5rem);
 }
 
 .color-section {
@@ -24,22 +20,37 @@ body {
   margin-top: 10em;
 }
 
+.div-top-margin {
+  padding-top: 10vh;
+}
+
 /* Top bar */
 
 .top-bar {
   margin-bottom: 2em;
-  height: 5em;
+  height: 5rem;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.vertical-div-parent {
-  position: relative;
+/* Small screens */
+
+@media screen and (min-width: 40em) {
+  .vertical-div-parent {
+    position: relative;
+  }
+  .vertical-div-child {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+  }
 }
 
-.vertical-div-child {
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
+/* Medium screens and up*/
+
+@media only screen and (min-width: 40.063em) {
+  .intro-top {
+    padding-top: 15rem;
+  }
 }
 
 .top-bar a {
