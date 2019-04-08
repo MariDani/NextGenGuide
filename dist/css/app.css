@@ -34,6 +34,25 @@ h5 {
 
 /* Top bar */
 
+#collapsed-nav-bar {
+  background-color:white;
+  color:inherit;
+  height: 5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  padding-left: 1rem;
+}
+
+#collapsed-nav-bar div.title-bar-title {
+  font-weight: normal;
+  padding-left: 1rem;
+}
+
+#collapsed-nav-bar  button.menu-icon::after {
+  background: gray;
+  -webkit-box-shadow: 0 7px 0 gray, 0 14px 0 gray;
+  box-shadow: 0 7px 0 gray, 0 14px 0 gray;
+  }
+
 .top-bar {
   margin-bottom: 2em;
   height: 5rem;
@@ -76,23 +95,6 @@ h5 {
 
 .top-bar, .top-bar ul {
   background-color: white;
-}
-
-#top-bar-logo img {
-  max-height: 5em;
-}
-
-#top-bar-logo a {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-#top-bar-logo li {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  /* column | row */
 }
 
 a:hover {
