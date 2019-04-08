@@ -12,6 +12,10 @@ body {
   height: calc(100vh - 5rem);
 }
 
+.full-height-second {
+  min-height: calc(100vh - 5rem);
+}
+
 .color-section {
   background-color: #def1f3;
 }
@@ -183,7 +187,7 @@ a:hover {
 
 #mission-vision {
   margin-top: 4rem;
-  margin-bottom: 2rem
+  margin-bottom: 4rem
 }
 
 #mission-vision div.callout-button {
