@@ -132,6 +132,11 @@ a:hover {
   max-width: 50%;
 }
 
+.img-circle-detail {
+  border-radius: 50%;
+  width: 70%;
+}
+
 .main-logo {
   height: 10em;
   width: auto;
@@ -158,6 +163,11 @@ a:hover {
   border-radius: 0.5em;
 }
 
+.subtitle {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
 #mentor-search {
   background-color: transparent;
 }
@@ -170,17 +180,26 @@ a:hover {
 /* Mentor details */
 
 .mentor-detail-section {
-  margin-bottom: 1.5em;
+  margin: 1.5rem 0 1.5rem 0;
 }
 
 #mentor-name {
   margin: 0.5em 0em 1.5em 0em
 }
 
+.label-parent {
+  margin-bottom: 0.4rem;
+}
+
+#contact-me {
+  padding: 0 3rem 0 3rem;
+}
+
 #contact-me a {
   background-color: #00C9B7;
   color: whitesmoke;
   border-radius: 0.5em;
+  width: 100%;
 }
 
 /* Index mission-vision */

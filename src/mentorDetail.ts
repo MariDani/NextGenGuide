@@ -38,11 +38,11 @@ export default class MentorDetail {
         (<HTMLImageElement>document.getElementById("mentor-pic-detail")).src = this.mentor.image_url;
     }
 
-    private moreAboutMentor(){
+    private moreAboutMentor() {
         document.getElementById("more-about-mentor").innerHTML = `<h5>More about ${this.mentor.first_name}:</h5>`;
     }
 
-    private showContactButton(){
+    private showContactButton() {
         let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name}">Contact me</a>`;
         document.getElementById("contact-me").innerHTML = contactHtml;
     }
@@ -109,7 +109,7 @@ export default class MentorDetail {
         if (this.mentor.company) {
             tableBody += `<tr>\n <td>${this.mentor.company}</td>\n`;
             tableBody += `<td>${this.mentor.role}</td>\n`;
-            tableBody += `<td>${this.mentor.working_industry? this.mentor.working_industry : ""}</td>\n`;
+            tableBody += `<td>${this.mentor.working_industry ? this.mentor.working_industry : ""}</td>\n`;
             tableBody += `<td>${this.mentor.country ? this.mentor.country : ""}</td>\n`;
             tableBody += "</tr>\n";
         }
@@ -146,7 +146,7 @@ export default class MentorDetail {
 }
 
 export function createTags(mentor: MentorDataProperties) {
-    let tagHtml = "<div>\n";
+    let tagHtml = "<div class='label-parent'>\n";
     let universityPrograms: Array<String> = [];
     let countries: Array<String> = [];
     if (mentor.country) countries.push(mentor.country);
@@ -164,9 +164,9 @@ export function createTags(mentor: MentorDataProperties) {
     });
     tagHtml = tagHtml + "</div>\n";
     if (mentor.working_industry) {
-        tagHtml = tagHtml + `<div>\n <span class="label label-color-b">${<String>mentor.working_industry}</span>\n </div>\n`;
+        tagHtml = tagHtml + `<div class='label-parent'>\n <span class="label label-color-b">${<String>mentor.working_industry}</span>\n </div>\n`;
     }
-    tagHtml = tagHtml + "<div>\n";
+    tagHtml = tagHtml + "<div class='label-parent'>\n";
     countries.forEach(country => {
         tagHtml = tagHtml + `<span class="label label-color-c">${<String>country}</span>\n`
     });
