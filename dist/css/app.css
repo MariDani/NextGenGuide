@@ -8,6 +8,10 @@ body {
   color: #302e2e;
 }
 
+h5 {
+  margin-bottom: 1.5rem;
+}
+
 .full-height {
   height: calc(100vh - 5rem);
 }
@@ -193,16 +197,21 @@ a:hover {
 
 #contact-me {
   padding: 0 3rem 0 3rem;
+  margin-top: 1.5rem;
 }
 
 #contact-me a {
-  background-color: #00C9B7;
-  color: whitesmoke;
+  background-color: #f8f8f8;
+  color: inherit;
   border-radius: 0.5em;
   width: 100%;
 }
 
 /* Index mission-vision */
+
+.icon img {
+  max-width: 50%;
+}
 
 #mission-vision {
   margin-top: 4rem;
@@ -210,8 +219,9 @@ a:hover {
 }
 
 #mission-vision div.callout-button {
-  color: white;
-  background-color: #707cbfA5;
+  color: grey;
+  border-radius: 0em;
+  text-align: left;
   border-width: 0rem;
   font-size: 95%;
   padding: 0.5rem;
@@ -269,10 +279,9 @@ a:hover {
   text-align: right;
   font-size: 90%;
   margin-top: 1rem;
-  padding: 0 1rem 0 1rem;
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 98%;
 }
 
 a.tiny {
@@ -288,28 +297,13 @@ a.tiny {
 }
 
 table {
-  margin: 1rem 0 1rem 0;
+  margin: 2rem 0 2rem 0;
 }
 
-thead {
-  border: none;
-  background: inherit;
+#education-table thead {
+  color: #707cbf;
 }
 
-tbody {
-  border: none;
-}
-
-tbody tr {
-  border-bottom: 0 !important;
-}
-
-th div.callout-button {
-  color: white
-}
-
-.table-type {
-  height: calc(100% - 3rem);
-  width: 100%;
-  color: white;
+#career-table thead {
+  color: #00C9B7;
 }

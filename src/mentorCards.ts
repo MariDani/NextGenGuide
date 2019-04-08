@@ -51,10 +51,10 @@ export default class MentorCards {
 
         this.mentors.forEach((mentor, index) => {
             let cardDiv = document.createElement("div");
-            if (index % 2 === 0){
-                cardDiv.className = "cell medium-5 medium-offset-1";
+            if (index % 2 === 0) {
+                cardDiv.className = "cell medium-5 medium-offset-1 small-10 small-offset-1";
             }
-            else cardDiv.className = "cell medium-5";
+            else cardDiv.className = "cell medium-5 medium-offset-0 small-10 small-offset-1";
             cardDiv.id = `mentor-${mentor.id}`;
             cardDiv.innerHTML = this.createInnerHtml(mentor);
             mentorsDiv.appendChild(cardDiv);

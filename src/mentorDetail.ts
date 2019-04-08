@@ -43,37 +43,21 @@ export default class MentorDetail {
     }
 
     private showContactButton() {
-        let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name}">Contact me</a>`;
+        let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name}">Contact ${this.mentor.first_name}</a>`;
         document.getElementById("contact-me").innerHTML = contactHtml;
     }
 
     private showEducationTable() {
         const tableHeader = `<thead>\n
         <tr>\n
-          <th><div class="callout callout-button color-b-inverted">University/School</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Program</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Country</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Graduation</div></th>\n
+          <th><div>University/School</div></th>\n
+          <th><div>Program</div></th>\n
+          <th><div>Country</div></th>\n
+          <th><div>Graduation</div></th>\n
         </tr>\n
         </thead>\n`;
 
         let tableBody = "<tbody>\n";
-
-        // czech high school
-        if (this.mentor.high_school_name) {
-            tableBody += `<tr>\n <td>${this.mentor.high_school_name}</td>\n`;
-            tableBody += `<td></td>\n <td></td>\n`;
-            tableBody += `<td>${this.mentor.maturita_year ? this.mentor.maturita_year : ""}</td>\n`;
-            tableBody += "</tr>\n";
-        }
-
-        // international high school
-        if (this.mentor.high_school_abroad) {
-            tableBody += `<tr>\n <td>${this.mentor.high_school_abroad}</td>\n`;
-            tableBody += `<td></td>\n <td>${this.mentor.high_school_abroad_country ? this.mentor.high_school_abroad_country : ""}</td>\n`;
-            tableBody += `<td></td>\n`;
-            tableBody += "</tr>\n";
-        }
 
         // university
         for (let idx = 1; idx <= 3; idx++) {
@@ -86,6 +70,22 @@ export default class MentorDetail {
             }
         }
 
+        // international high school
+        if (this.mentor.high_school_abroad) {
+            tableBody += `<tr>\n <td>${this.mentor.high_school_abroad}</td>\n`;
+            tableBody += `<td>-</td>\n <td>${this.mentor.high_school_abroad_country ? this.mentor.high_school_abroad_country : ""}</td>\n`;
+            tableBody += `<td>-</td>\n`;
+            tableBody += "</tr>\n";
+        }
+
+        // czech high school
+        if (this.mentor.high_school_name) {
+            tableBody += `<tr>\n <td>${this.mentor.high_school_name}</td>\n`;
+            tableBody += `<td>-</td>\n <td>Czech Republic</td>\n`;
+            tableBody += `<td>${this.mentor.maturita_year ? this.mentor.maturita_year : ""}</td>\n`;
+            tableBody += "</tr>\n";
+        }
+
         tableBody += "</tbody>\n";
 
         if (tableBody != "<tbody>\n") {
@@ -96,10 +96,10 @@ export default class MentorDetail {
     private showCareerTable() {
         const tableHeader = `<thead>\n
         <tr>\n
-          <th><div class="callout callout-button color-b-inverted">Company</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Role</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Industry</div></th>\n
-          <th><div class="callout callout-button color-b-inverted">Country</div></th>\n
+          <th><div>Company</div></th>\n
+          <th><div>Role</div></th>\n
+          <th><div>Industry</div></th>\n
+          <th><div>Country</div></th>\n
         </tr>\n
         </thead>\n`;
 
