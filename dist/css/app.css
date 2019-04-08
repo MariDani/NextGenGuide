@@ -29,7 +29,7 @@ h5 {
 }
 
 .div-top-margin {
-  padding: 10vh 0 10vh 0;
+  padding: 2vh 0 2vh 0;
 }
 
 /* Top bar */
@@ -53,12 +53,20 @@ h5 {
   }
 }
 
-/* Medium screens and up*/
+/* Large screens and up */
 
-@media only screen and (min-width: 40.063em) {
+@media only screen and (min-width: 90em) {
   .intro-top {
     padding-top: 15rem;
   }
+}
+
+.center-vertically {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .top-bar a {
@@ -110,15 +118,9 @@ a:hover {
 /* index.html page */
 
 #page-down-arrow {
-  top: 90vh;
-  position: absolute;
-  left: calc(50% - 28px);
+  margin-left: calc(50% - 28px);
+  margin-top: 5rem;
 }
-
-/* #page-down-arrow a{
-  left: calc(50% - 28px);
-  position: absolute;
-} */
 
 .mentor-card {
   border-width: 0;
@@ -230,6 +232,10 @@ a:hover {
 
 #mission-vision div h4 {
   margin-bottom: 1rem;
+}
+
+#contact-me a.button {
+  border-color: gray;
 }
 
 /* Callout main buttons */
