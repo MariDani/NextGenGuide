@@ -83,3 +83,4 @@ web/dist/caddy
 web/dist/index.js
 server/package-lock.json
 dist/index.js
+dist/img/.DS_Store
