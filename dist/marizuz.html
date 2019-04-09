@@ -13,17 +13,35 @@
 
 <body>
 
-  <!-- NAV BAR -->
-  <div class="title-bar" id="collapsed-nav-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
-    <button class="menu-icon" type="button" data-toggle></button>
-    <div class="title-bar-title">Menu</div>
+  <!-- NAV BAR MOBILE-->
+  <div class="top-bar-container show-for-small-only" data-sticky-container>
+    <div class="sticky sticky-topbar" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li>
+              <a id="dropdown-parent" href="#">Next Gen Guide</a>
+              <ul class="menu vertical">
+                <li><a href="marizuz.html">Home</a></li>
+                <li><a href="marizuz.html#mission">Mission and Vision</a></li>
+                <li><a href="mentordb.html">Mentors</a></li>
+                <li><a href="newstudent.html">Join Us: students</a></li>
+                <li><a href="newmentor.html">Join Us: mentors</a></li>
+                <li><a href="about.html">About Us</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="top-bar-container" data-sticky-container>
+  <!-- NAV BAR -->
+  <div class="top-bar-container hide-for-small-only" data-sticky-container>
     <div class="sticky sticky-topbar" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
-      <div class="top-bar" id="example-menu">
+      <div class="top-bar">
         <div class="top-bar-left">
-          <ul class="vertical menu medium-horizontal">
+          <ul class="menu" id="top-bar-logo">
             <li><a href="marizuz.html">Next Gen Guide</a></li>
           </ul>
         </div>
@@ -119,9 +137,11 @@
 
         <div class="small-10 small-offset-1 cell">
           <h4>Mission and Vision</h4>
-          <p>NextGen <strong>advances person growth for the next generation</strong>. We do that by connecting students
+          <p>NextGen <strong>advances person growth for the next generation</strong>. We do that by connecting
+            students
             seeking advise with
-            mentors. Our vision is to <strong>establish an environment with free and easy access to real information and
+            mentors. Our vision is to <strong>establish an environment with free and easy access to real information
+              and
               guidance
               for next chapter</strong>.</p>
           <p><strong>NextGen</strong>’s mission and vision is based on our core values:</p>
@@ -144,7 +164,8 @@
         <div class="medium-6 small-10 small-offset-1 cell medium-offset-0 cell">
           <div class="callout callout-button">
             <p><strong>Next Gen connects</strong></p>
-            <p>We connect by creating a global network between alumni in professional setting and up-and-coming talent.
+            <p>We connect by creating a global network between alumni in professional setting and up-and-coming
+              talent.
             </p>
           </div>
         </div>
