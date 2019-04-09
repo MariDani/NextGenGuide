@@ -43,7 +43,7 @@ export default class MentorDetail {
     }
 
     private showContactButton() {
-        let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name}">Contact ${this.mentor.first_name}</a>`;
+        let contactHtml = `<a class="button" href="mailto:mentors.nextgen@gmail.com?subject=For ${this.mentor.first_name} ${this.mentor.last_name} (DO NOT CHANGE)">Contact ${this.mentor.first_name}</a>`;
         document.getElementById("contact-me").innerHTML = contactHtml;
     }
 
@@ -118,8 +118,7 @@ export default class MentorDetail {
         if (this.mentor.previous_company) {
             tableBody += `<tr>\n <td>${this.mentor.previous_company}</td>\n`;
             tableBody += `<td>${this.mentor.previous_role}</td>\n`;
-            // tableBody += `<td>${this.mentor.working_industry? this.mentor.working_industry : ""}</td>\n`;
-            tableBody += "<td></td>"
+            tableBody += `<td>${this.mentor.previous_industry ? this.mentor.previous_industry : ""}</td>\n`;
             tableBody += `<td>${this.mentor.previous_country ? this.mentor.previous_country : ""}</td>\n`;
             tableBody += "</tr>\n";
         }

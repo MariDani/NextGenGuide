@@ -32,7 +32,8 @@ export interface MentorDataProperties {
     previous_company?: string,
     previous_country?: string,
     image_url: string,
-    description: string
+    description: string,
+    previous_industry?: string
 }
 
 export default class MentorCards {
