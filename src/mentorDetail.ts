@@ -148,6 +148,7 @@ export function createTags(mentor: MentorDataProperties) {
     let tagHtml = "<div class='label-parent'>\n";
     let universityPrograms: Array<String> = [];
     let countries: Array<String> = [];
+    let industries: Array<String> = [];
     if (mentor.country) countries.push(mentor.country);
     if (mentor.previous_country && countries.indexOf(mentor.previous_country) < 0) countries.push(mentor.previous_country)
     for (let idx = 1; idx <= 3; idx++) {
@@ -158,13 +159,20 @@ export function createTags(mentor: MentorDataProperties) {
             countries.push(<String>mentor[`university_${idx}_country`]);
         }
     }
+    if (mentor.working_industry) industries.push(mentor.working_industry);
+    if (mentor.previous_industry) industries.push(mentor.previous_industry);
+
     universityPrograms.forEach(program => {
         tagHtml = tagHtml + `<span class="label label-color-a">${<String>program}</span>\n`
     });
     tagHtml = tagHtml + "</div>\n";
-    if (mentor.working_industry) {
-        tagHtml = tagHtml + `<div class='label-parent'>\n <span class="label label-color-b">${<String>mentor.working_industry}</span>\n </div>\n`;
-    }
+
+    tagHtml = tagHtml + "<div class='label-parent'>\n";
+    industries.forEach(industry => {
+        tagHtml = tagHtml + `<span class="label label-color-b">${<String>industry}</span>\n`
+    });
+    tagHtml = tagHtml + "</div>\n";
+
     tagHtml = tagHtml + "<div class='label-parent'>\n";
     countries.forEach(country => {
         tagHtml = tagHtml + `<span class="label label-color-c">${<String>country}</span>\n`
