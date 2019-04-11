@@ -61,13 +61,16 @@ h5 {
   }
 }
 
+#mobile-menu {
+  z-index: 1;
+}
+
 .center-vertically {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  z-index: -1;
 }
 
 .top-bar a {
