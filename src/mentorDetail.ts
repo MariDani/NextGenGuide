@@ -160,7 +160,7 @@ export function createTags(mentor: MentorDataProperties) {
         }
     }
     if (mentor.working_industry) industries.push(mentor.working_industry);
-    if (mentor.previous_industry) industries.push(mentor.previous_industry);
+    if (mentor.previous_industry && industries.indexOf(mentor.previous_industry) < 0) industries.push(mentor.previous_industry);
 
     universityPrograms.forEach(program => {
         tagHtml = tagHtml + `<span class="label label-color-a">${<String>program}</span>\n`
