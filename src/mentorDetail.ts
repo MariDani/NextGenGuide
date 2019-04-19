@@ -159,6 +159,7 @@ export function createTags(mentor: MentorDataProperties) {
             countries.push(<String>mentor[`university_${idx}_country`]);
         }
     }
+    if (mentor.high_school_abroad_country && countries.indexOf(mentor.high_school_abroad_country) < 0) countries.push(mentor.high_school_abroad_country)
     if (mentor.working_industry) industries.push(mentor.working_industry);
     if (mentor.previous_industry && industries.indexOf(mentor.previous_industry) < 0) industries.push(mentor.previous_industry);
 
